@@ -7,15 +7,34 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --primary: #5E43FF;
+    --background: #202437;
+    --text: #202437;
   }
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  font-family: var(--font-satoshi);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-baloo2);
+}
+
+.cta-text {
+  font-family: var(--font-poppins);
+}
+
+/* Hide default cursor */
+* {
+  cursor: none;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
 }
