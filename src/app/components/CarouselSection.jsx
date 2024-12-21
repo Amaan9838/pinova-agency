@@ -70,7 +70,7 @@ const Slide = styled.div`
 
   @media (max-width: 768px) {
     height: auto;
-    min-height: 100vh;
+    min-height: 65vh;
     width: 100%;
     padding: 4rem 2rem;
   }
@@ -83,6 +83,10 @@ const ProgressBar = styled.div`
   transform: translateX(-50%);
   display: flex;
   gap: 1rem;
+
+   @media (max-width: 768px) {
+    display: none;
+  }
 `
 
 const ProgressDot = styled.div`
@@ -141,9 +145,11 @@ export default function CarouselSection() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
     
-    const slides = gsap.utils.toArray('.carousel-slide')
-    
-    gsap.to(slides, {
+    const ctx = gsap.context(() => {
+      if (!isMobile) {
+        // Desktop animations
+        const slides = gsap.utils.toArray('.carousel-slide');
+     gsap.to(slides, {
       xPercent: -100 * (slides.length - 1),
       ease: "none",
       scrollTrigger: {
@@ -160,8 +166,27 @@ export default function CarouselSection() {
             })
           }
       }
-    })
-  }, [])
+    });
+  } else {
+    // Mobile animations
+    const slides = gsap.utils.toArray('.carousel-slide');
+    slides.forEach((slide, i) => {
+      gsap.to(slide, {
+        scrollTrigger: {
+          trigger: slide,
+          start: "top center",
+          end: "bottom center",
+          scrub: 1,
+          onEnter: () => updateProgress(i)
+        }
+      });
+    });
+    }
+  });
+
+  return () => ctx.revert();
+}, [isMobile]);
+
 
   return (
     <CarouselWrapper ref={triggerRef}>
