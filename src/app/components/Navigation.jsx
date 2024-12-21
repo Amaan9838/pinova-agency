@@ -11,8 +11,6 @@ import Image from 'next/image'
 const Nav = styled.nav`
   width: 100%;
   z-index: 100;
-
-  
 `
 
 const NavContent = styled.div`
@@ -52,6 +50,7 @@ const MobileMenu = styled.div`
     justify-content: center;
     align-items: center;
     gap: 2rem;
+    z-index: 50;
   }
 `
 
@@ -79,13 +78,13 @@ export default function Navigation() {
   }, [])
 
   return (
-    <Nav style={{ position: isFixed ? 'fixed' : 'absolute' }} className={` px-2 bg-white lg:px-32 md:px-4`}>
+    <Nav style={{ position: isFixed ? 'fixed' : 'absolute' }} className={` px-4 bg-white lg:px-32 md:px-8`}>
       <NavContent>
         {/* Left - Logo */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-2xl font-bold"
+          className="z-[60]"
         >
           <Image src={"/logo.png"} width={200} height={200} alt="" srcSet="" className='w-24 md:w-36' />
         </motion.div>
@@ -126,16 +125,16 @@ export default function Navigation() {
         <motion.button
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-black text-white px-8 py-4 text-lg rounded-full hover:bg-gray-800 transition-colors"
+          className="hidden lg:blockbg-black text-white px-8 py-4 text-lg rounded-full hover:bg-gray-800 transition-colors"
         >
           Contact Us
         </motion.button>
 
         <button 
-          className="block lg:hidden bg-black" 
+          className="block lg:hidden z-[60]" 
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
-          {mobileMenuOpen ? <X size={24} className='bg-white text-white' /> : <Menu size={24} />}
+          {mobileMenuOpen ? <X size={24} className=' text-white' /> : <Menu size={24} className='text-black'/>}
         </button>
 
         {/* Mobile Menu Overlay */}
@@ -144,13 +143,13 @@ export default function Navigation() {
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex flex-col gap-8 items-center"
+              className="flex flex-col gap-8 items-center text-white"
             >
               <a className="text-xl">Our Services</a>
               <a className="text-xl">How it Works</a>
               <a className="text-xl">Our Projects</a>
               <a className="text-xl">Customer Reviews</a>
-              <button className="bg-black text-white px-6 py-3 rounded-full">
+              <button className="bg-white text-black px-6 py-3 rounded-full">
                 Contact Us
               </button>
             </motion.div>

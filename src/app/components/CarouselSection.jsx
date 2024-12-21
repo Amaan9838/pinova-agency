@@ -179,7 +179,38 @@ export default function CarouselSection() {
           scrub: 1,
           onEnter: () => updateProgress(i)
         }
+      })
+      gsap.from(slide.children, {
+        scrollTrigger: {
+          trigger: slide,
+          start: "top 80%",
+          end: "center center",
+          scrub: 1,
+        },
+        y: 100,
+        opacity: 0,
+        stagger: 0.2,
+        duration: 1.5,
+        ease: "power3.out"
       });
+
+       // Slide background reveal
+       gsap.fromTo(slide, 
+        {
+          clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)"
+        },
+        {
+          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+          scrollTrigger: {
+            trigger: slide,
+            start: "top 80%",
+            end: "top 20%",
+            scrub: 1
+          },
+          duration: 1,
+          ease: "power2.inOut"
+        }
+      );
     });
     }
   });

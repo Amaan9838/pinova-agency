@@ -1,18 +1,28 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState, useLayoutEffect } from 'react'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 import styled from '@emotion/styled'
 
 const ServicesWrapper = styled.div`
   overflow: hidden;
+
+   @media (max-width: 768px) {
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
 `
 
 const ServicesSections = styled.div`
   height: 100vh;
   background: #fff;
   position: relative;
+
+    @media (max-width: 768px) {
+    min-height: 65vh;
+    height: auto;
+  }
 `
 
 const SlidesContainer = styled.div`
@@ -21,6 +31,11 @@ const SlidesContainer = styled.div`
   top: 0;
   left: 0;
   height: 100%;
+
+    @media (max-width: 768px) {
+    position: relative;
+    flex-direction: column;
+  }
 `
 
 const Slide = styled.div`
@@ -34,6 +49,12 @@ padding-bottom: 7.5rem;
   align-items: center;
   justify-content: center;
   
+   @media (max-width: 768px) {
+    width: 100%;
+    padding: 2rem 0.5rem;
+    min-height: 65vh;
+  }
+
   h2 {
     font-size: clamp(2.5rem, 6vw, 5rem);
     color: #000;
@@ -41,6 +62,10 @@ padding-bottom: 7.5rem;
     line-height: 1.2;
     margin-bottom: 1.5rem;
     font-weight: 700;
+
+     @media (max-width: 768px) {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+    }
   }
   
   p {
@@ -48,6 +73,10 @@ padding-bottom: 7.5rem;
     color: rgba(0, 0, 0, 0.6);
     font-family: var(--font-poppins);
     max-width: 600px;
+
+     @media (max-width: 768px) {
+      font-size: 1rem;
+    }
   }
 `
 
@@ -85,6 +114,12 @@ const ServiceCard = styled.div`
     color: rgba(0, 0, 0, 0.6);
     font-family: var(--font-poppins);
     max-width: 600px;
+  }
+
+   @media (max-width: 768px) {
+    width: 90%;
+    margin: 0 auto;
+    padding: 3rem 2rem;
   }
 `
 
@@ -128,37 +163,122 @@ const slides = [
   }
 ]
 
+
+const useScreenSize = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useLayoutEffect(() => {
+    const checkMobile = () => {
+      const width = document.documentElement.clientWidth;
+      setIsMobile(width <= 768);
+    };
+    checkMobile();
+    const resizeObserver = new ResizeObserver(checkMobile);
+    resizeObserver.observe(document.documentElement);
+    return () => resizeObserver.disconnect();
+  }, []);
+
+  return isMobile;
+};
+
 export default function ServicesSection() {
   const sectionRef = useRef(null)
   const triggerRef = useRef(null)
   const slidesContainerRef = useRef(null)
+  const isMobile = useScreenSize();
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
     
-    const slides = gsap.utils.toArray('.service-slide')
-    
-    gsap.to(slides, {
-      xPercent: -100 * (slides.length - 1),
-      ease: "none",
-      scrollTrigger: {
-        trigger: triggerRef.current,
-        pin: true,
-        scrub: 1,
-        snap: 1 / (slides.length - 1),
-        end: () => "+=" + slidesContainerRef.current.offsetWidth
+    const ctx = gsap.context(() => {
+      if (!isMobile) {
+        const slides = gsap.utils.toArray('.service-slide');
+        gsap.to(slides, {
+          xPercent: -100 * (slides.length - 1),
+          ease: "none",
+          scrollTrigger: {
+            trigger: triggerRef.current,
+            pin: true,
+            scrub: 1,
+            snap: 1 / (slides.length - 1),
+            end: () => "+=" + slidesContainerRef.current.offsetWidth
+          }
+        });
+      }else {
+        // Intro section animation
+        gsap.from('.service-slide:first-child', {
+          scrollTrigger: {
+            trigger: '.service-slide:first-child',
+            start: 'top 80%',
+            end: 'center center',
+            scrub: 1
+          },
+          y: 100,
+          opacity: 0,
+          duration: 1.5,
+          ease: 'power3.out'
+        });
+  
+        // Service cards staggered reveal
+        const cards = gsap.utils.toArray('.service-slide:not(:first-child)');
+        cards.forEach((card, index) => {
+          const direction = index % 2 === 0 ? -100 : 100;
+          
+          // Card container animation
+          gsap.from(card, {
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 75%',
+              end: 'top 25%',
+              scrub: 1
+            },
+            x: direction,
+            opacity: 0,
+            scale: 0.9,
+            duration: 1
+          });
+  
+          // Card content staggered animation
+          gsap.from(card.querySelectorAll('h2, p, .tools'), {
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 70%',
+              end: 'top 30%'
+            },
+            y: 50,
+            opacity: 0,
+            stagger: 0.2,
+            duration: 1,
+            ease: 'power2.out'
+          });
+        });
+  
+        // Tool buttons pop-in effect
+        gsap.from('.tools button', {
+          scrollTrigger: {
+            trigger: '.tools',
+            start: 'top 80%'
+          },
+          scale: 0,
+          opacity: 0,
+          stagger: 0.1,
+          duration: 0.5,
+          ease: 'back.out(1.7)'
+        });
       }
-    })
-  }, [])
+    });
+
+    return () => ctx.revert();
+  }, [isMobile]);
 
   return (
     <ServicesWrapper ref={triggerRef}>
       <ServicesSections ref={sectionRef}>
         <SlidesContainer ref={slidesContainerRef}>
           {slides.map((slide, index) => (
-            <Slide className='service-slide' key={index}>
+            <Slide className={`service-slide `}  key={index}>
               {slide.type === 'intro' ? (
-                <div>
+                <div className='px-[1.5rem] sm:px-0'>
                   <ServiceButton>Services</ServiceButton>
                   <h2>{slide.title}</h2>
                   <p>{slide.content}</p>

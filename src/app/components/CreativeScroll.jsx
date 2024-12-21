@@ -1,30 +1,62 @@
 'use client';
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import styled from "@emotion/styled";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const initialSlides = [
-  {
-    mainHeading: (
-      <h1 className="text-6xl font-bold text-white leading-tight">
-        We are a creative 🎨 and
-        <br />
-        passionate 🧠 team based
-        <br />
-        in Paris 🏠
-      </h1>
-    ),
-    button: "Meet our team →",
-    bgColor: "bg-[#5E43FF]",
-  },
-  {
-    mainHeading: "We offer you ideal support from idea to implementation",
-    bgColor: "bg-[#1E1E2E]",
-  },
-];
+
+const useScreenSize = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useLayoutEffect(() => {
+    const checkMobile = () => {
+      const width = document.documentElement.clientWidth;
+      setIsMobile(width <= 768);
+    };
+    checkMobile();
+    const resizeObserver = new ResizeObserver(checkMobile);
+    resizeObserver.observe(document.documentElement);
+    return () => resizeObserver.disconnect();
+  }, []);
+
+  return isMobile;
+};
+
+const StyledSection = styled.section`
+  min-height: 100vh;
+  
+  h1 {
+    font-size: clamp(3rem, 8vw, 6rem);
+    
+    @media (max-width: 768px) {
+      font-size: clamp(2rem, 6vw, 3rem);
+      line-height: 1.3;
+    }
+  }
+
+  button {
+    @media (max-width: 768px) {
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+    }
+  }
+`
+
+const ContentSection = styled.div`
+  h2 {
+    @media (max-width: 768px) {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+    }
+  }
+  
+  p {
+    @media (max-width: 768px) {
+      font-size: clamp(1rem, 4vw, 1.5rem);
+    }
+  }
+`
 
 const contentSlides = [
   {
@@ -48,6 +80,7 @@ const CreativeScroll = () => {
   const fixedSectionRef = useRef(null);
   const slidesContainerRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const isMobile = useScreenSize();
 
   const ProgressBar = styled.div`
     position: absolute;
@@ -75,6 +108,8 @@ const CreativeScroll = () => {
 
   useEffect(() => {
     let ctx = gsap.context(() => {
+     
+      if (!isMobile) {
       // Fixed section with content slides
       const fixedSection = gsap.timeline({
         scrollTrigger: {
@@ -119,36 +154,124 @@ const CreativeScroll = () => {
         marginTop: "-150px",
         ease: "power2.inOut"
       });
+
+    } else {
+      // Mobile animations
+      const slides = gsap.utils.toArray('.content-slide');
+      slides.forEach((slide, index) => {
+        gsap.set(slide, {
+          position: 'relative',
+          opacity: 1,
+          yPercent: 0
+        });
+      });
+
+      slides.forEach((slide, index) => {
+        const isEven = index % 2 === 0;
+        
+        gsap.from(slide, {
+          scrollTrigger: {
+            trigger: slide,
+            start: "top 70%",
+            end: "top 20%",
+            scrub: 1
+          },
+          x: isEven ? -100 : 100,
+          opacity: 0,
+          duration: 1.5,
+          ease: "power2.out"
+        });
+      });
+
+      gsap.from(".blue-section", {
+        scrollTrigger: {
+          trigger: ".blue-section",
+          start: "top center",
+          end: "center center",
+          scrub: 1,
+        },
+        scale: 0.9,
+        borderRadius: "120px",
+        duration: 1.5
+      });
+
+      // Text and button reveal
+      gsap.from(".blue-section h1, .blue-section button", {
+        scrollTrigger: {
+          trigger: ".blue-section",
+          start: "top 80%",
+          end: "center center",
+        },
+        y: 100,
+        opacity: 0,
+        stagger: 0.3,
+        duration: 1,
+        ease: "power3.out"
+      });
+
+   
+      slides.forEach((slide, index) => {
+        const elements = slide.querySelectorAll('h2, p, img');
+        
+        gsap.from(elements, {
+          scrollTrigger: {
+            trigger: slide,
+            start: "top 70%",
+            end: "center center",
+          },
+          y: 60,
+          opacity: 0,
+          scale: 0.95,
+          stagger: 0.2,
+          duration: 1,
+          ease: "power2.out"
+        });
+      });
+
+      // Progress dots fade in
+      gsap.from(".progress-dot", {
+        scrollTrigger: {
+          trigger: fixedSectionRef.current,
+          start: "top center",
+          end: "center center",
+          scrub: 1,
+        },
+        opacity: 0,
+        x: -20,
+        stagger: 0.1,
+        duration: 0.8
+      });
+    }
     });
 
 
     return () => ctx.revert();
-  }, []);
+  }, [isMobile]);
 
   
 
   return (
     <div ref={containerRef} className="relative">
-      <section className="blue-section min-h-screen bg-[#5E43FF] rounded-[80px] p-8 mx-8  flex items-center justify-center relative z-20">
-        <div className="text-center mx-auto">
-          <h1 className="text-[6rem] font-bold text-white leading-tight">
+      <section className="blue-section md:min-h-screen min-h-[65vh] bg-[#5E43FF] rounded-[80px] md:p-8 px-3 py-12 mx-4 md:mx-8 flex items-center justify-center relative z-20">
+        <div className="text-center mx-auto px-4 md:px-0">
+          <h1 className="md:text-[6rem] text-4xl font-bold text-white leading-tight">
             We are a creative 🎨 and
             <br />
             passionate 🧠 team based
             <br />
             in Paris 🏠
           </h1>
-          <button className="mt-8 bg-white text-black rounded-full text-4xl px-8 py-10 font-semibold">
+          <button className="mt-8 bg-white text-black rounded-full md:text-4xl text-2xl px-6 py-6 md:px-8 md:py-10 font-semibold">
             Meet our team →
           </button>
         </div>
       </section>
 
       <div
-        className="black-section  bg-[#1E1E2E] text-center relative z-10"
-        style={{ padding: "140px 120px 72px" }}
+        className="black-section  bg-[#1E1E2E] text-center relative z-10 pt-16 px-6  md:pt-[140px] md:px-[120px] md:pb-[72px]"
+  
       >
-        <h1 className="text-[6rem] leading-[6rem] font-bold text-white">
+        <h1 className="md:text-[6rem] text-4xl md:leading-[6rem] font-bold text-white">
           We offer you ideal support from idea to implementation
         </h1>
       </div>
@@ -157,7 +280,7 @@ const CreativeScroll = () => {
         ref={fixedSectionRef}
         className="min-h-screen bg-[#1E1E2E] relative"
       >
-           <div className="absolute left-8 top-1/2 -translate-y-1/2 flex flex-col gap-4">
+           <div className="hidden absolute left-8 top-1/2 -translate-y-1/2 md:flex flex-col gap-4">
           {contentSlides.map((_, index) => (
             <div
               key={index}
@@ -171,21 +294,21 @@ const CreativeScroll = () => {
         </div>
         <div
           ref={slidesContainerRef}
-          className="relative h-screen overflow-hidden"
-        >
+          className={`${isMobile ? 'relative' : 'relative h-screen'} overflow-hidden`}
+ >
           {contentSlides.map((slide, index) => (
             <div
               key={index}
-              className={`content-slide-${index} absolute top-0 left-0 w-full h-full flex items-end justify-between p-12`}
-              style={{ opacity: index === 0 ? 1 : 0 }}
-            >
-              <div className="py-24 px-12">
-                <h2 className="text-[6rem] font-bold text-white">
+              className={`content-slide content-slide-${index}  ${isMobile ? 'relative' : 'absolute'} top-0 left-0 w-full h-full flex md:flex-row flex-col-reverse md:items-end items-center md:justify-between justify-start py-6 md:p-12`}
+              style={{ opacity: isMobile ? 1 : index === 0 ? 1 : 0 }}
+              >
+              <div className="md:py-24 py-12 md:px-12 px-6 text-center md:text-left">
+                <h2 className="md:text-[6rem] text-[2.6rem] font-bold text-white">
                   {slide.mainHeading}
                 </h2>
-                <p className="text-4xl text-gray-300">{slide.subHeading}</p>
+                <p className="text-xl md:text-4xl md:text-gray-300 text-gray-400">{slide.subHeading}</p>
               </div>
-              <img alt="presentation" src="https://inprogress.agency/static/media/frame4.f5185cd9c489dc53b491.webp" loading="lazy" class="h-full rounded-3xl max-[1180px]:h-auto max-[1180px]:w-1/3 max-md:w-[200px]"></img>
+              <img alt="presentation" src="https://inprogress.agency/static/media/frame4.f5185cd9c489dc53b491.webp" loading="lazy" class="h-[300px] md:h-full rounded-3xl mt-12 md-8 md:mt-0 md:mb-0 max-[1180px]:h-auto max-[1180px]:w-1/3 max-md:w-[200px]"></img>
             </div>
           ))}
         </div>
