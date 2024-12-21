@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
 import Navigation from '@/app/components/Navigation'
 import Hero from '@/app/components/Hero'
 import Projects from '@/app/components/Project';
