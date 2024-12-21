@@ -16,7 +16,7 @@ export default function Home() {
       {/* <SmoothScroll> */}
         <Navigation />
         <Hero />
-        <Projects />
+        {/* <Projects /> */}
         <CarouselSection />
         <ServicesSection/>
         <CreativeScroll/>

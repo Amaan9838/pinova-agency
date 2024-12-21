@@ -1,18 +1,28 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState, useLayoutEffect } from 'react'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 import styled from '@emotion/styled'
 
 const CarouselWrapper = styled.div`
   overflow: hidden;
+
+   @media (max-width: 768px) {
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
 `
 
 const CarouselSections = styled.div`
   height: 100vh;
   background: #5E43FF;
   position: relative;
+
+    @media (max-width: 768px) {
+    min-height: 100vh;
+    height: auto;
+  }
 `
 
 const SlidesContainer = styled.div`
@@ -21,6 +31,11 @@ const SlidesContainer = styled.div`
   top: 0;
   left: 0;
   height: 100%;
+
+  @media (max-width: 768px) {
+    position: relative;
+    flex-direction: column;
+  }
 `
 
 const Slide = styled.div`
@@ -39,12 +54,25 @@ const Slide = styled.div`
     line-height: 1;
     margin-bottom: 1rem;
     font-weight: 700;
+    text-align: center;
+
+    @media (max-width: 768px) {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+    }
   }
   
   p {
     font-size: clamp(1rem, 2vw, 1.5rem);
     color: rgba(255, 255, 255, 0.8);
     font-family: var(--font-poppins);
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    height: auto;
+    min-height: 100vh;
+    width: 100%;
+    padding: 4rem 2rem;
   }
 `
 
@@ -83,10 +111,32 @@ const slides = [
   }
 ]
 
+const useScreenSize = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useLayoutEffect(() => {
+    const checkMobile = () => {
+      const width = document.documentElement.clientWidth || document.body.clientWidth;
+      setIsMobile(width <= 768);
+    };
+
+    checkMobile();
+    const resizeObserver = new ResizeObserver(() => {
+      checkMobile();
+    });
+
+    resizeObserver.observe(document.documentElement);
+    return () => resizeObserver.disconnect();
+  }, []);
+
+  return isMobile;
+};
+
 export default function CarouselSection() {
   const sectionRef = useRef(null)
   const triggerRef = useRef(null)
   const slidesContainerRef = useRef(null)
+  const isMobile = useScreenSize();
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Poppins, Baloo_2 } from "next/font/google";
+import { League_Spartan, Baloo_2 } from "next/font/google";
 import "./globals.css";
 
 
-const poppins = Poppins({
+const poppins = League_Spartan({
   subsets: ['latin-ext'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-poppins'
