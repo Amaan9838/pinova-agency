@@ -1,6 +1,5 @@
 'use client'
 
-import Navigation from '@/app/components/Navigation'
 import Hero from '@/app/components/Hero'
 import CarouselSection from '@/app/components/CarouselSection'
 import ServicesSection from '@/app/components/ServicesSection';
