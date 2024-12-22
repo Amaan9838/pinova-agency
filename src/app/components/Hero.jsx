@@ -321,7 +321,7 @@ if(!isMobile) {
       >
 
       </DiscoverButton>
-     <div className=' absolute bottom-[5%] sm:flex items-end gap-1 pointer-events-none'><span className="discover-text text-4xl font-semibold ">Discover us </span><ArrowUpRight className='w-12 h-12 -ml-2 -mb-1'/></div> 
+     <div className='hidden absolute bottom-[5%] sm:flex items-end gap-1 pointer-events-none'><span className="discover-text text-4xl font-semibold ">Discover us </span><ArrowUpRight className='w-12 h-12 -ml-2 -mb-1'/></div> 
 
     </HeroSection>
   );
