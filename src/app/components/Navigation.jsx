@@ -125,7 +125,7 @@ export default function Navigation() {
         <motion.button
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="hidden lg:blockbg-black text-white px-8 py-4 text-lg rounded-full hover:bg-gray-800 transition-colors"
+          className="hidden lg:block bg-black text-white px-8 py-4 text-lg rounded-full hover:bg-gray-800 transition-colors"
         >
           Contact Us
         </motion.button>
