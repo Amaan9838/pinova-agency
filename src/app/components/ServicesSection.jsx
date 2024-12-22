@@ -285,7 +285,7 @@ export default function ServicesSection() {
                 </div>
               ) : (
                 index === 1 ? (
-                  <ServiceCard className='ml-[-20vh]'>
+                  <ServiceCard className='md:ml-[-20vh]'>
                   <h2>{slide.title} <span style={{opacity: 0.3}}>_{slide.number}</span></h2>
                   <p>{slide.content}</p>
                   <div className="tools">
