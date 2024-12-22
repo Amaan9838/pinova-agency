@@ -1,12 +1,31 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useLayoutEffect } from 'react'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 
 import { motion } from 'framer-motion'
 import styled from '@emotion/styled'
 import { Send, ArrowUpRight, Phone, Mail, MapPin } from 'lucide-react'
+
+
+const useScreenSize = () => {
+    const [isMobile, setIsMobile] = useState(false);
+  
+    useLayoutEffect(() => {
+      const checkMobile = () => {
+        const width = document.documentElement.clientWidth;
+        setIsMobile(width <= 768);
+      };
+      checkMobile();
+      const resizeObserver = new ResizeObserver(checkMobile);
+      resizeObserver.observe(document.documentElement);
+      return () => resizeObserver.disconnect();
+    }, []);
+  
+    return isMobile;
+  };
+
 
 const ContactWrapper = styled.div`
   min-height: 90vh;
@@ -111,9 +130,12 @@ export default function Contact() {
   const [status, setStatus] = useState('')
 
   const sectionRef = useRef(null)
+  const isMobile = useScreenSize();
 
   useEffect(() => {
     const section = sectionRef.current
+
+   if (!isMobile) {
 
     gsap.from(section, {
       scrollTrigger: {
@@ -142,7 +164,8 @@ export default function Contact() {
       y: 0,
       opacity: 1,
     })
-  }, [])
+}
+  }, [isMobile])
   
   const handleSubmit = async (e) => {
     e.preventDefault()

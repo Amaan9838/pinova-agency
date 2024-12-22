@@ -108,7 +108,13 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const menuItems = ["Services", "Projects", "Process", "About"]
+  const menuItems = [
+    { title: "Services", href: "#" },
+    { title: "Projects", href: "#" },
+    { title: "Process", href: "#" },
+    { title: "About", href: "#" },
+    { title: "Contact Us", href: "/contact" }
+  ]
   
   const menuVariants = {
     closed: { opacity: 0, y: "-100%" },
@@ -138,16 +144,19 @@ export default function Navigation() {
 
         <DesktopMenu>
           {menuItems.map((item, i) => (
+             <Link href={item.href} key={`desktop-${item.title}`}>
+  
             <MenuLink
-              key={item}
+              
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
               className="text-gray-800 hover:text-gray-600"
             >
-              {item}
+              {item.title}
             </MenuLink>
-          ))}
+            </Link>
+))}
           
           <Link href="/contact">
   <motion.button
@@ -184,8 +193,8 @@ export default function Navigation() {
           >
             <div className="h-full flex flex-col justify-center items-center gap-12">
               {menuItems.map((item, i) => (
+                <Link href={item.href} key={`mobile-${item.title}`}>
                 <motion.div
-                  key={item}
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ 
                     opacity: 1, 
@@ -197,9 +206,11 @@ export default function Navigation() {
                     }
                   }}
                   className="text-3xl font-bold text-white hover:text-gray-300"
+                  onClick={() => setIsOpen(false)}
                 >
-                  {item}
+                  {item.title}
                 </motion.div>
+              </Link>
               ))}
             </div>
             
