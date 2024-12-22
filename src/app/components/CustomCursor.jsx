@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useLayoutEffect } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import styled from '@emotion/styled'
 
 const CursorWrapper = styled.div`
@@ -19,8 +19,10 @@ const Cursor = styled.div`
   pointer-events: none;
   mix-blend-mode: difference;
   background-color: black;
-  transition: width 0.2s ease, height 0.2s ease, transform 0.2s ease;
+  will-change: transform, width, height;
   transform: translate(-50%, -50%);
+  transition: width 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+              height 0.2s cubic-bezier(0.23, 1, 0.32, 1);
 
   @media (max-width: 768px) {
     display: none;
@@ -32,13 +34,11 @@ const useScreenSize = () => {
 
   useLayoutEffect(() => {
     const checkMobile = () => {
-      const width = document.documentElement.clientWidth;
-      setIsMobile(width <= 768);
+      setIsMobile(window.innerWidth <= 768);
     };
     checkMobile();
-    const resizeObserver = new ResizeObserver(checkMobile);
-    resizeObserver.observe(document.documentElement);
-    return () => resizeObserver.disconnect();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   return isMobile;
@@ -46,65 +46,72 @@ const useScreenSize = () => {
 
 export default function CustomCursor() {
   const isMobile = useScreenSize();
-  const [position, setPosition] = useState({ x: 0, y: 0 })
-  const [isHovered, setIsHovered] = useState(false)
-  const [isClicked, setIsClicked] = useState(false)
+  const cursorRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+  const cursorSize = isHovered ? 64 : 32;
+  const scale = isClicked ? 0.9 : 1;
 
   useEffect(() => {
     if (isMobile) return;
 
-    const handleMouseMove = (e) => {
-      setPosition({ x: e.clientX, y: e.clientY });
+    let rafId;
+    const cursor = cursorRef.current;
+
+    const moveCursor = (e) => {
+      if (!cursor) return;
+      
+      rafId = requestAnimationFrame(() => {
+        cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) scale(${scale})`;
+      });
     };
 
     const handleMouseDown = () => setIsClicked(true);
     const handleMouseUp = () => setIsClicked(false);
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('mousemove', moveCursor);
+    document.addEventListener('mousedown', handleMouseDown);
+    document.addEventListener('mouseup', handleMouseUp);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('mousemove', moveCursor);
+      document.removeEventListener('mousedown', handleMouseDown);
+      document.removeEventListener('mouseup', handleMouseUp);
+      cancelAnimationFrame(rafId);
     };
-  }, [isMobile]);
-
+  }, [isMobile, scale]);
 
   useEffect(() => {
     if (isMobile) return;
-    const handleHoverElements = () => {
-      const interactiveElements = document.querySelectorAll('button, a, input, [data-hover]')
-      
+
+    const interactiveElements = document.querySelectorAll('button, a, input, [data-hover]');
+    
+    const handleMouseEnter = () => setIsHovered(true);
+    const handleMouseLeave = () => setIsHovered(false);
+    
+    interactiveElements.forEach(element => {
+      element.addEventListener('mouseenter', handleMouseEnter);
+      element.addEventListener('mouseleave', handleMouseLeave);
+    });
+
+    return () => {
       interactiveElements.forEach(element => {
-        element.addEventListener('mouseenter', () => setIsHovered(true))
-        element.addEventListener('mouseleave', () => setIsHovered(false))
-      })
-    }
-
-    handleHoverElements()
-  }, [isMobile])
-
-  const cursorSize = isHovered ? 64 : 32
-  const scale = isClicked ? 0.9 : 1
+        element.removeEventListener('mouseenter', handleMouseEnter);
+        element.removeEventListener('mouseleave', handleMouseLeave);
+      });
+    };
+  }, [isMobile]);
 
   return (
-    <>
-      <CursorWrapper>
-        <Cursor
-          style={{
-            width: `${cursorSize}px`,
-            height: `${cursorSize}px`,
-            transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
-            left: 0,
-            top: 0,
-            mixBlendMode: 'difference' // Add this line
-          }}
-        />
-      </CursorWrapper>
-
-    
-    </>
-  )
+    <CursorWrapper className='z-10'>
+      <Cursor
+        ref={cursorRef}
+        style={{
+          width: `${cursorSize}px`,
+          height: `${cursorSize}px`,
+          mixBlendMode: 'difference'
+        }}
+      />
+    </CursorWrapper>
+  );
 }

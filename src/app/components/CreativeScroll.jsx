@@ -118,6 +118,7 @@ const CreativeScroll = () => {
           end: `+=${contentSlides.length * 100}%`,
           pin: true,
           scrub: 1,
+          anticipatePin: 1, // Anticipate pinning to prevent flickering
           onUpdate: (self) => {
             // Calculate the active index based on scroll progress
             const newIndex = Math.round(self.progress * (contentSlides.length - 1));

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { League_Spartan, Baloo_2 } from "next/font/google";
 import CustomCursor from './components/CustomCursor';
+import Navigation from "./components/Navigation";
 import "./globals.css";
 
 
@@ -35,8 +36,9 @@ export default function RootLayout({
   return (
     <html lang="en">
      <body className={`${poppins.variable} ${baloo2.variable}`}>
-     <CustomCursor />
+              <Navigation />
         {children}
+     <CustomCursor />
       </body>
     </html>
   );

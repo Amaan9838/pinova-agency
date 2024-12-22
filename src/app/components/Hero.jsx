@@ -2,8 +2,10 @@
 
 import { useEffect, useRef, useState, useLayoutEffect } from 'react'
 import gsap from 'gsap'
-import ScrollTrigger from 'gsap/dist/ScrollTrigger'
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 import styled from '@emotion/styled'
+import { ArrowUpRight } from 'lucide-react'
 
 const useScreenSize = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -32,6 +34,8 @@ const useScreenSize = () => {
   return isMobile;
 };
 
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
 const HeroSection = styled.section`
   height: 100vh;
   display: flex;
@@ -43,9 +47,10 @@ const HeroSection = styled.section`
   overflow: hidden;
 
    @media (max-width: 768px) {
-   min-height: 100vh;
+   height: 68vh;
     flex-direction: column;
     justify-content: center;
+    margin-bottom: -50px;
   }
 `
 
@@ -53,7 +58,6 @@ const HeroText = styled.div`
   h1 {
     font-size: clamp(3rem, 8vw, 7rem);
     line-height: 1.2;
-    margin: 0;
     font-weight: 700;
     font-family: var(--font-baloo2);
     color: #000;
@@ -61,12 +65,12 @@ const HeroText = styled.div`
     transition: font-size 0.3s ease;
    
     @media (max-width: 768px) {
-      font-size: clamp(2.5rem, 6vw, 4rem);
-       line-height: 1.3;
+      font-size: clamp(3.5rem, 12vw, 4rem);
+       line-height: 1;
     }
 
     @media (max-width: 480px) {
-      font-size: clamp(2rem, 5vw, 3rem);
+      font-size: clamp(3rem, 5vw, 3rem);
     }
 
   }
@@ -87,16 +91,11 @@ const DiscoverButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 80px;
+
  transition: all 0.3s ease;
 
    @media (max-width: 768px) {
-    position: relative;
-    margin-top: 3rem;
-    width: 90% !important;
-    transform: none;
-    left: auto;
-    padding: 1.5rem !important;
+   display: none;
   }
 
   .discover-text {
@@ -133,42 +132,32 @@ export default function Hero() {
           end: '+=2000',
           pin: true,
           scrub: 1,
-          onUpdate: (self) => {
-            const buttonBounds = buttonRef.current.getBoundingClientRect();
-            
-            // Check each h1 element separately
-            textRef.current.querySelectorAll('h1').forEach(h1 => {
-              const textBounds = h1.getBoundingClientRect();
-              
-              // Check if button overlaps with this specific text element
-              if (!(buttonBounds.right < textBounds.left || 
-                  buttonBounds.left > textBounds.right || 
-                  buttonBounds.bottom < textBounds.top || 
-                  buttonBounds.top > textBounds.bottom)) {
-                gsap.to(h1, {
-                  color: 'white',
-                  duration: 0.1
-                });
-              } else {
-                gsap.to(h1, {
-                  color: 'black',
-                  duration: 0.1
-                });
-              }
-            });
-          }
+          anticipatePin: 1
         }
       });
 
       // First horizontal expansion
-      tl.to(buttonRef.current, {
-        width: '95vh',
-        height: '35vh',
-        bottom: '0',
-        duration: 1.5,
-        ease: 'power2.inOut',
-        borderRadius:180,
-      })
+      // Capsule-like expansion
+tl.to(buttonRef.current, {
+  width: '100vw', // Expand to full width
+  height: '60vh', // Expand height to desired capsule size
+  bottom: 0,
+  duration: 1, // Adjust duration for smooth expansion
+  ease: 'power2.inOut',
+  borderTopLeftRadius: '30vh', // Maintain a consistent border radius for capsule shape
+  borderTopRightRadius: '30vh', // Maintain a consistent border radius for capsule shape
+  borderBottomLeftRadius: '5vh', // Remove bottom left radius
+  borderBottomRightRadius: '5vh', // Remove bottom right radius
+  
+  borderBottomLeftRadius: 0, // Remove bottom left radius
+borderBottomRightRadius: 0, // Remove bottom right radius
+onUpdate: () => {
+  // Ensure the text remains centered
+  gsap.set(buttonRef.current.querySelector('.discover-text'), {
+    y: 0 // Keep the text vertically centered
+  });
+}
+})
       // Then expand upwards
       // .to(buttonRef.current, {
       //   height: '25vh',
@@ -179,9 +168,9 @@ export default function Hero() {
       // Finally expand downwards
       .to(buttonRef.current, {
         width: '100vw',
-        borderTopLeftRadius:180,
-        borderTopRightRadius:180,
-        height: '40vh',
+        borderTopLeftRadius:'30vh',
+        borderTopRightRadius:'30vh',
+        height: '60vh',
         bottom: 0,
         borderRadius: 0,
         duration: 1,
@@ -279,11 +268,43 @@ else {
     return () => ctx.revert();
   }, [isMobile]);
 
+  const handleButtonClick = () => {
+    // Expand the button
+if(!isMobile) {
+    gsap.to(buttonRef.current, {
+      width: '100vw', // Expand to full width
+      height: '60vh', // Expand height to desired capsule size
+      bottom: 0,
+      duration: 1, // Adjust duration for smooth expansion
+      // ease: 'power2.inOut',
+      borderTopLeftRadius: '30vh', // Maintain a consistent border radius for capsule shape
+      borderTopRightRadius: '30vh', // Maintain a consistent border radius for capsule shape
+      borderBottomLeftRadius: '5vh', // Remove bottom left radius
+      borderBottomRightRadius: '5vh', // Remove bottom right radius
+      
+      borderBottomLeftRadius: 0, // Remove bottom left radius
+    borderBottomRightRadius: 0, // Remove bottom right radius
+    
+      onComplete: () => {
+        // Scroll to the next section after expansion
+        gsap.to(window, {
+          scrollTo: { y: window.scrollY + 2800 }, // Scroll down by 3000px
+          duration: 5, // Duration of the scroll animation
+          ease: 'power2.inOut' // Easing function
+        
+        });
+       }
+    })
+  
+  }
+  };
+
+
   return (
-    <HeroSection ref={sectionRef} className='flex flex-col justify-center items-between'>
+    <HeroSection ref={sectionRef} className='flex flex-col sm:justify-center justify-end items-between'>
       <HeroText ref={textRef} className='hero-text px-4 md:px-12 flex flex-col justify-center items-center'>
-        <h1>
-          Your <span className='highlight-span  text-[#5E43FF] bg-[#5e43ff4d] px-4 py-3 rounded-3xl relative inline-block'>
+        <h1 className='md:mt-0 mt-[-10px] ' >
+          Your <span className='highlight-span  text-[#5E43FF] bg-[#5e43ff4d] sm:px-4 sm:py-3 px-2 py-1 sm:rounded-3xl rounded-2xl relative inline-block'>
             partner
           </span>
         </h1>
@@ -293,11 +314,15 @@ else {
       
       <DiscoverButton 
         ref={buttonRef} 
-        className='px-8 py-6 md:px-16 md:py-8 text-4xl'
+        className='px-4 py-6 md:px-36 md:py-12 md:text-4xl text-2xl sm:rounded-[80px] rounded-tl-[80px] rounded-tr-[80px]'
         data-hover
+        onClick={handleButtonClick} // Add click handler
+       
       >
-        <span className="discover-text">Discover Us</span>
+
       </DiscoverButton>
+     <div className=' absolute bottom-[5%] sm:flex items-end gap-1 pointer-events-none'><span className="discover-text text-4xl font-semibold ">Discover us </span><ArrowUpRight className='w-12 h-12 -ml-2 -mb-1'/></div> 
+
     </HeroSection>
   );
 }

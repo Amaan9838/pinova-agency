@@ -22,6 +22,9 @@ const CarouselSections = styled.div`
     @media (max-width: 768px) {
     min-height: 100vh;
     height: auto;
+    border-top: 1px solid #5E43FF;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
   }
 `
 
@@ -222,6 +225,8 @@ export default function CarouselSection() {
   return (
     <CarouselWrapper ref={triggerRef}>
       <CarouselSections ref={sectionRef}>
+      <div className='sm:hidden text-white text-2xl text-center pt-20 font-semibold'>Discover us</div>
+
         <SlidesContainer ref={slidesContainerRef}>
           {slides.map((slide, index) => (
             <Slide className='carousel-slide' key={index}>
