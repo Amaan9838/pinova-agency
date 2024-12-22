@@ -3,7 +3,7 @@ import { League_Spartan, Baloo_2 } from "next/font/google";
 import CustomCursor from './components/CustomCursor';
 import Navigation from "./components/Navigation";
 import "./globals.css";
-
+import Footer from "./components/Footer";
 
 const poppins = League_Spartan({
   subsets: ['latin-ext'],
@@ -38,7 +38,9 @@ export default function RootLayout({
      <body className={`${poppins.variable} ${baloo2.variable}`}>
               <Navigation />
         {children}
+        
      <CustomCursor />
+<Footer/>
       </body>
     </html>
   );

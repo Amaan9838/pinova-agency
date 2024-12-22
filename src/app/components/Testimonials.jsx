@@ -179,7 +179,7 @@ const Testimonials = () => {
         </section>
         
       </div>
-      <footer className=" bg-[#000] py-6 md:py-8 px-6 md:px-12">
+      {/* <footer className=" bg-[#000] py-6 md:py-8 px-6 md:px-12">
             <div className="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-0 text-white">
               <div className="flex flex-col gap-12">
               <Image src="/pinova_black_logo.png" alt="Pinova Logo" width={300} height={300} className='w-48 md:w-64' />
@@ -232,7 +232,7 @@ const Testimonials = () => {
                 </a>
               </div>
             </div>
-          </footer>
+          </footer> */}
     </div>
   );
 };

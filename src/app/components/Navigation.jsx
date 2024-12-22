@@ -3,8 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import styled from '@emotion/styled'
-import gsap from 'gsap'
-import ScrollTrigger from 'gsap/dist/ScrollTrigger'
+import Link from 'next/link'
 import { Menu } from 'lucide-react'
 import Image from 'next/image'
 
@@ -150,13 +149,15 @@ export default function Navigation() {
             </MenuLink>
           ))}
           
-          <motion.button
-            className="bg-black text-white px-8 py-4 rounded-full hover:bg-gray-800"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Contact Us
-          </motion.button>
+          <Link href="/contact">
+  <motion.button
+    className="hidden lg:block bg-black text-white px-8 py-4 text-lg rounded-full hover:bg-gray-800 transition-colors"
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+  >
+    Contact Us
+  </motion.button>
+</Link>
         </DesktopMenu>
       </DesktopNav>
 

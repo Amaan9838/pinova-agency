@@ -1,13 +1,15 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import ScrollTrigger from 'gsap/dist/ScrollTrigger'
+
 import { motion } from 'framer-motion'
 import styled from '@emotion/styled'
 import { Send, ArrowUpRight, Phone, Mail, MapPin } from 'lucide-react'
 
 const ContactWrapper = styled.div`
-  min-height: 100vh;
-  background: linear-gradient(45deg, #f6f6f6, #ffffff);
+  min-height: 90vh;
   overflow: hidden;
 `
 
@@ -96,6 +98,7 @@ const InfoCard = styled(motion.div)`
     color: white;
   }
 `
+gsap.registerPlugin(ScrollTrigger)
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -105,33 +108,72 @@ export default function Contact() {
     message: ''
   })
   
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [status, setStatus] = useState('')
+
+  const sectionRef = useRef(null)
+
+  useEffect(() => {
+    const section = sectionRef.current
+
+    gsap.from(section, {
+      scrollTrigger: {
+        trigger: section,
+        start: "top 80%",
+        end: "center center",
+        scrub: 1,
+      },
+      width: "92%",
+      marginLeft: "60px",
+      borderRadius: "60px",
+      y: 100,
+      opacity: 0.8,
+    })
+
+    gsap.to(section, {
+      scrollTrigger: {
+        trigger: section,
+        start: "top 80%",
+        end: "center center",
+        scrub: 1,
+      },
+      width: "100%",
+      borderRadius: "80px",
+      marginLeft: "-1px",
+      y: 0,
+      opacity: 1,
+    })
+  }, [])
   
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setIsSubmitting(true)
+    setStatus('loading')
     
-    // Google Forms integration
-    const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdYNt6Zwnr6qReQAz3P1xn12PBPabU9ryXx-MvsesiHRey-MQ/viewform?usp=header'
     try {
-      await fetch(formUrl, {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        mode: 'no-cors',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/json'
         },
-        body: new URLSearchParams(formData)
+        body: JSON.stringify({
+          access_key: '0af8ea4a-660e-463d-afcb-fcaab95caf70', // Get this from web3forms.com dashboard
+          ...formData
+        })
       })
       
-      // Success animation
-      setIsSubmitting(false)
-      setFormData({ name: '', email: '', project: '', message: '' })
+      const result = await response.json()
+      if (result.success) {
+        setStatus('success')
+        setFormData({ name: '', email: '', project: '', message: '' })
+      } else {
+        setStatus('error')
+      }
     } catch (error) {
-      setIsSubmitting(false)
+      setStatus('error')
     }
   }
 
   return (
+    <>
     <ContactWrapper>
       <motion.div
         initial={{ opacity: 0 }}
@@ -163,7 +205,7 @@ export default function Contact() {
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-1">Call Us</h3>
-                <p className="text-gray-600">+1 (555) 123-4567</p>
+                <p className="text-gray-600">+91 (926) 661-2906</p>
               </div>
             </InfoCard>
 
@@ -177,23 +219,11 @@ export default function Contact() {
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-1">Email Us</h3>
-                <p className="text-gray-600">hello@designcompany.com</p>
+                <p className="text-gray-600">hello@pinova.in</p>
               </div>
             </InfoCard>
 
-            <InfoCard
-              initial={{ x: -50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.4 }}
-            >
-              <div className="icon">
-                <MapPin size={24} />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-1">Visit Us</h3>
-                <p className="text-gray-600">123 Design Street, Creative City</p>
-              </div>
-            </InfoCard>
+            
           </div>
 
           <motion.form
@@ -241,19 +271,87 @@ export default function Contact() {
                 required
               />
             </FormField>
+            {status === 'success' && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-green-50 text-green-600 p-4 rounded-lg mb-6"
+        >
+          Message sent successfully! We'll get back to you soon.
+        </motion.div>
+      )}
 
+      {status === 'error' && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-red-50 text-red-600 p-4 rounded-lg mb-6"
+        >
+          Something went wrong. Please try again.
+        </motion.div>
+      )}
             <GradientButton
               type="submit"
-              disabled={isSubmitting}
+              disabled={status === 'loading'}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              {isSubmitting ? 'Sending...' : 'Send Message'}
-              <ArrowUpRight size={24} />
+             {status === 'loading' ? (
+          <span className="flex items-center gap-2">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+            >
+              ◌
+            </motion.div>
+            Sending...
+          </span>
+        ) : (
+          <span className="flex items-center gap-2">
+            Send Message
+            <ArrowUpRight size={24} />
+          </span>
+        )}
             </GradientButton>
+
           </motion.form>
         </ContactGrid>
       </motion.div>
+      
     </ContactWrapper>
+    <div  ref={sectionRef} className="w-full min-h-[400px] bg-[#5E43FF] rounded-[60px] flex flex-col items-center  px-6 py-24 text-white">
+    {/* Main text content */}
+    <div className="text-center space-y-6 max-w-6xl">
+      <h2 className="text-4xl md:text-[6rem] font-bold leading-tight">
+        You can also contact us by email 
+        <span className="inline-block mx-2 transform translate-y-2">
+        📩
+        </span> 
+        at the following address:
+      </h2>
+    </div>
+
+    {/* Email button */}
+    <div className="mt-8">
+      <a 
+        href="mailto:support@pinova.in"
+        className="inline-flex items-center bg-white text-black px-8 py-4 rounded-full text-xl hover:opacity-90 transition-opacity"
+      >
+       support@pinova.in
+        <svg 
+          className="ml-2 w-4 h-4" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="currentColor" 
+          strokeWidth="2"
+        >
+          <path d="M7 17L17 7M17 7H7M17 7V17" />
+        </svg>
+      </a>
+    </div>
+
+    {/* Decorative elements */}
+    </div>
+    </>
   )
 }
