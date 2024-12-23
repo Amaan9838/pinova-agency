@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, Clock, User, Calendar, Share2 } from 'lucide-react';
+import { ArrowLeft, Clock, Calendar, Share2 } from 'lucide-react';
 
 const blogPost = {
   id: 1,
