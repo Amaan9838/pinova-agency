@@ -152,10 +152,15 @@ tl.to(buttonRef.current, {
   borderBottomLeftRadius: 0, // Remove bottom left radius
 borderBottomRightRadius: 0, // Remove bottom right radius
 onUpdate: () => {
-  // Ensure the text remains centered
-  gsap.set(buttonRef.current.querySelector('.discover-text'), {
-    y: 0 // Keep the text vertically centered
-  });
+  // Add null check before accessing querySelector
+  if (buttonRef.current) {
+    const discoverText = buttonRef.current.querySelector('.discover-text');
+    if (discoverText) {
+      gsap.set(discoverText, {
+        y: 0
+      });
+    }
+  }
 }
 })
       // Then expand upwards

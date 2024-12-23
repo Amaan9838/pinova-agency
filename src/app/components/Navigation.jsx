@@ -162,7 +162,7 @@ export default function Navigation() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
-          <Image src="/transparent-logo.png" width={140} height={40} alt="Logo" />
+       <Link href={"/"}>   <Image src="/transparent-logo.png" width={140} height={40} alt="Logo" /></Link>
         </motion.div>
 
         <DesktopMenu>
