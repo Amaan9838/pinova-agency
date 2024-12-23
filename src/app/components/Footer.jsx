@@ -8,10 +8,9 @@ const footerLinks = {
     { text: "hello@pinova.in", href: "mailto:hello@pinova.in" }
   ],
   rightSection: [
-    { text: "Our services", href: "#services" },
-    { text: "Our projects", href: "#" },
-    { text: "How it works", href: "#" },
-    { text: "Customer reviews", href: "#" }
+    { text: "Our services", href: "/services" },
+    { text: "How we works", href: "/how-we-work" },
+    { text: "Blog", href: "#" }
   ],
   socialLinks: [
     { icon: Instagram, href: "https://www.instagram.com/pinovastudio/", label: "Instagram" },
@@ -75,18 +74,7 @@ export default function Footer() {
         <div className="flex flex-col md:items-center gap-12">
           <div className="hidden md:flex md:flex-col flex-row gap-6">
             <div className="flex gap-12">
-              {footerLinks.rightSection.slice(0, 2).map((link, index) => (
-                <a 
-                  key={index}
-                  href={link.href}
-                  className="text-gray-400 font-semibold text-lg hover:text-white transition-colors"
-                >
-                  {link.text}
-                </a>
-              ))}
-            </div>
-            <div className="flex gap-12">
-              {footerLinks.rightSection.slice(2, 4).map((link, index) => (
+              {footerLinks.rightSection.map((link, index) => (
                 <a 
                   key={index}
                   href={link.href}
