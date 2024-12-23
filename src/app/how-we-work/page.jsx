@@ -50,7 +50,28 @@ export default function HowWeWork() {
 
         <div className="relative">
           {/* Vertical line - hidden on mobile */}
-          <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-amber-500 via-purple-500 to-blue-500" />
+        {/* Curly wave timeline */}
+<div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full">
+  <svg className="h-full" width="50" viewBox="0 0 50 1000" fill="none" preserveAspectRatio="none">
+    <path 
+      d="M 25,0 
+         C 45,100 5,200 25,300
+         C 45,400 5,500 25,600
+         C 45,700 5,800 25,900
+         C 45,950 25,1000 25,1000" 
+      stroke="url(#gradient)" 
+      strokeWidth="4" 
+      fill="none"
+    />
+    <defs>
+      <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stopColor="#f59e0b" />
+        <stop offset="50%" stopColor="#8b5cf6" />
+        <stop offset="100%" stopColor="#3b82f6" />
+      </linearGradient>
+    </defs>
+  </svg>
+</div>
 
           {timelineSteps.map((step, index) => (
             <motion.div
