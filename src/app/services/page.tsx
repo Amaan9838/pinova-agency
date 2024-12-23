@@ -6,7 +6,7 @@ import {
   ArrowUpRight, Sparkles, Zap, Target, Palette, Code, Globe, TrendingUp,
   Smartphone, Search, Video, MessageSquare, BarChart, Shield
 } from 'lucide-react'
-import Button  from '@/app/components/button';
+import Button  from '../components/Button';
 
 const services = [
   {
