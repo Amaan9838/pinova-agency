@@ -124,14 +124,19 @@ const ServiceCard = styled.div`
 `
 
 
-const ToolButton = styled.button`
-  padding: 0.5rem 1.5rem;
-  border-radius: 20px;
-  background: rgba(94, 67, 255, 0.1);
-  color: #5E43FF;
-  font-family: var(--font-poppins);
-  margin-right: 1rem;
-  margin-top: 1rem;
+const ToolImage = styled.img`
+  height: 40px;
+  width: auto;
+  margin-right: 1.5rem;
+  margin-top: 1.5rem;
+
+  opacity: 0.9;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+  }
 `
 
 const slides = [
@@ -145,23 +150,40 @@ const slides = [
     title: 'Design',
     number: '001',
     content: 'We take into account user interaction with the interface. We pay special attention to hypothesis testing and prototyping, only the most successful solutions are retained for visualization.',
-    tools: ['Figma', 'Adobe XD', 'Adobe Photoshop', 'Adobe Illustrator']
+    tools: [
+      'https://cdn.worldvectorlogo.com/logos/figma-1.svg',
+      'https://upload.wikimedia.org/wikipedia/commons/c/c2/Adobe_XD_CC_icon.svg',
+      'https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg',
+      'https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg'
+    ]
   },
   {
     type: 'service',
     title: 'Development',
     number: '002',
     content: 'We develop web and mobile applications. We use the latest technologies and best practices to create digital products that are scalable and maintainable over time solutions are retained for visualization.',
-    tools: ['React', 'Node.js', 'Python', 'AWS']
+    tools: [
+      'https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg',
+      'https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg',
+      'https://www.vectorlogo.zone/logos/google_cloud/google_cloud-icon.svg',
+      'https://assets.vercel.com/image/upload/v1588805858/repositories/vercel/logo.png',
+      'https://www.vectorlogo.zone/logos/cloudflare/cloudflare-icon.svg'
+    ]
   },
   {
     type: 'service',
     title: 'Strategy',
     number: '003',
     content: 'Nothing makes sense without good organization. We use agile methods to manage our projects. We are transparent and communicate regularly with our clients to keep them informed of the progress of the project.',
-    tools: ['Analytics', 'SEO', 'Marketing', 'Optimization']
+    tools: [
+      'https://www.vectorlogo.zone/logos/google_analytics/google_analytics-icon.svg',
+      'https://www.vectorlogo.zone/logos/google/google-icon.svg',
+      'https://www.vectorlogo.zone/logos/hubspot/hubspot-icon.svg',
+      'https://www.vectorlogo.zone/logos/shopify/shopify-icon.svg'
+    ]
   }
 ]
+
 
 
 const useScreenSize = () => {
@@ -272,7 +294,7 @@ export default function ServicesSection() {
   }, [isMobile]);
 
   return (
-    <ServicesWrapper ref={triggerRef}>
+    <ServicesWrapper ref={triggerRef} id='services'>
       <ServicesSections ref={sectionRef}>
         <SlidesContainer ref={slidesContainerRef}>
           {slides.map((slide, index) => (
@@ -288,19 +310,19 @@ export default function ServicesSection() {
                   <ServiceCard className='md:ml-[-20vh]'>
                   <h2>{slide.title} <span style={{opacity: 0.3}}>_{slide.number}</span></h2>
                   <p>{slide.content}</p>
-                  <div className="tools">
+                  <div className="tools flex flex-wrap">
                     {slide.tools.map((tool, i) => (
-                      <ToolButton key={i}>{tool}</ToolButton>
-                    ))}
+                       <ToolImage key={i} src={tool} alt="Tool Logo" />
+                      ))}
                   </div>
                 </ServiceCard>
                 ) : (
                 <ServiceCard>
                   <h2>{slide.title} <span style={{opacity: 0.3}}>_{slide.number}</span></h2>
                   <p>{slide.content}</p>
-                  <div className="tools">
+                  <div className="tools flex flex-wrap">
                     {slide.tools.map((tool, i) => (
-                      <ToolButton key={i}>{tool}</ToolButton>
+                      <ToolImage key={i} src={tool} alt="Tool Logo" />
                     ))}
                   </div>
                 </ServiceCard>
