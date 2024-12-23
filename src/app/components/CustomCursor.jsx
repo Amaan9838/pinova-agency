@@ -1,7 +1,7 @@
 'use client'
-
 import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import styled from '@emotion/styled'
+import gsap from 'gsap'
 
 const CursorWrapper = styled.div`
   position: fixed;
@@ -13,21 +13,141 @@ const CursorWrapper = styled.div`
   z-index: 9999;
 `
 
-const Cursor = styled.div`
+const BigBall = styled.div`
   position: fixed;
-  border-radius: 50%;
   pointer-events: none;
   mix-blend-mode: difference;
-  background-color: black;
-  will-change: transform, width, height;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s cubic-bezier(0.23, 1, 0.32, 1),
-              height 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 1000;
+  
+  svg circle {
+    fill: #f7f8fa;
+  }
 
   @media (max-width: 768px) {
     display: none;
   }
 `
+
+const SmallBall = styled.div`
+  position: fixed;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  z-index: 1000;
+  
+  svg circle {
+    fill: #f7f8fa;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+`
+
+export default function CustomCursor() {
+  const isMobile = useScreenSize();
+  const bigBallRef = useRef(null);
+  const smallBallRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    if (isMobile) return;
+
+    const onMouseMove = (e) => {
+      gsap.to(bigBallRef.current, {
+        duration: 0.4,
+        x: e.clientX - 15,  // Changed from pageX to clientX
+        y: e.clientY - 15
+      });
+      
+      gsap.to(smallBallRef.current, {
+        duration: 0.1,
+        x: e.clientX - 5,   // Changed from pageX to clientX
+        y: e.clientY - 7
+      });
+    };
+
+    const onMouseLeave = () => {
+      gsap.to(bigBallRef.current, {
+        duration: 0.1,
+        opacity: 0
+      });
+      gsap.to(smallBallRef.current, {
+        duration: 0.1,
+        opacity: 0
+      });
+    };
+
+    const onMouseEnter = () => {
+      gsap.to(bigBallRef.current, {
+        duration: 0.1,
+        opacity: 1
+      });
+      gsap.to(smallBallRef.current, {
+        duration: 0.1,
+        opacity: 1
+      });
+    };
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseleave', onMouseLeave);
+    document.addEventListener('mouseenter', onMouseEnter);
+
+    return () => {
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseleave', onMouseLeave);
+      document.removeEventListener('mouseenter', onMouseEnter);
+    };
+}, [isMobile]);
+
+
+  useEffect(() => {
+    if (isMobile) return;
+
+    const handleMouseEnter = () => {
+      gsap.to(bigBallRef.current, {
+        duration: 0.3,
+        scale: 4
+      });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(bigBallRef.current, {
+        duration: 0.3,
+        scale: 1
+      });
+    };
+
+    const hoverables = document.querySelectorAll('button, a, input, [data-hover]');
+    
+    hoverables.forEach(element => {
+      element.addEventListener('mouseenter', handleMouseEnter);
+      element.addEventListener('mouseleave', handleMouseLeave);
+    });
+
+    return () => {
+      hoverables.forEach(element => {
+        element.removeEventListener('mouseenter', handleMouseEnter);
+        element.removeEventListener('mouseleave', handleMouseLeave);
+      });
+    };
+  }, [isMobile]);
+
+  return (
+    <CursorWrapper>
+      <BigBall ref={bigBallRef}>
+        <svg height="60" width="60">
+          <circle cx="15" cy="15" r="12" strokeWidth="0"></circle>
+        </svg>
+      </BigBall>
+      
+      <SmallBall ref={smallBallRef}>
+        <svg height="30" width="30">
+          <circle cx="5" cy="5" r="4" strokeWidth="0"></circle>
+        </svg>
+      </SmallBall>
+    </CursorWrapper>
+  );
+}
 
 const useScreenSize = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -43,75 +163,3 @@ const useScreenSize = () => {
 
   return isMobile;
 };
-
-export default function CustomCursor() {
-  const isMobile = useScreenSize();
-  const cursorRef = useRef(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isClicked, setIsClicked] = useState(false);
-  const cursorSize = isHovered ? 64 : 32;
-  const scale = isClicked ? 0.9 : 1;
-
-  useEffect(() => {
-    if (isMobile) return;
-
-    let rafId;
-    const cursor = cursorRef.current;
-
-    const moveCursor = (e) => {
-      if (!cursor) return;
-      
-      rafId = requestAnimationFrame(() => {
-        cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) scale(${scale})`;
-      });
-    };
-
-    const handleMouseDown = () => setIsClicked(true);
-    const handleMouseUp = () => setIsClicked(false);
-
-    document.addEventListener('mousemove', moveCursor);
-    document.addEventListener('mousedown', handleMouseDown);
-    document.addEventListener('mouseup', handleMouseUp);
-
-    return () => {
-      document.removeEventListener('mousemove', moveCursor);
-      document.removeEventListener('mousedown', handleMouseDown);
-      document.removeEventListener('mouseup', handleMouseUp);
-      cancelAnimationFrame(rafId);
-    };
-  }, [isMobile, scale]);
-
-  useEffect(() => {
-    if (isMobile) return;
-
-    const interactiveElements = document.querySelectorAll('button, a, input, [data-hover]');
-    
-    const handleMouseEnter = () => setIsHovered(true);
-    const handleMouseLeave = () => setIsHovered(false);
-    
-    interactiveElements.forEach(element => {
-      element.addEventListener('mouseenter', handleMouseEnter);
-      element.addEventListener('mouseleave', handleMouseLeave);
-    });
-
-    return () => {
-      interactiveElements.forEach(element => {
-        element.removeEventListener('mouseenter', handleMouseEnter);
-        element.removeEventListener('mouseleave', handleMouseLeave);
-      });
-    };
-  }, [isMobile]);
-
-  return (
-    <CursorWrapper className='z-10'>
-      <Cursor
-        ref={cursorRef}
-        style={{
-          width: `${cursorSize}px`,
-          height: `${cursorSize}px`,
-          mixBlendMode: 'difference'
-        }}
-      />
-    </CursorWrapper>
-  );
-}

@@ -108,14 +108,21 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const menuItems = [
+  const desktopMenuItems = [
+    { title: "Services", href: "#" },
+    { title: "Projects", href: "#" },
+    { title: "Process", href: "#" },
+    { title: "About", href: "#" }
+  ]
+  
+  const mobileMenuItems = [
     { title: "Services", href: "#" },
     { title: "Projects", href: "#" },
     { title: "Process", href: "#" },
     { title: "About", href: "#" },
     { title: "Contact Us", href: "/contact" }
   ]
-  
+
   const menuVariants = {
     closed: { opacity: 0, y: "-100%" },
     open: { 
@@ -143,7 +150,7 @@ export default function Navigation() {
         </motion.div>
 
         <DesktopMenu>
-          {menuItems.map((item, i) => (
+          {desktopMenuItems.map((item, i) => (
              <Link href={item.href} key={`desktop-${item.title}`}>
   
             <MenuLink
@@ -192,7 +199,7 @@ export default function Navigation() {
             variants={menuVariants}
           >
             <div className="h-full flex flex-col justify-center items-center gap-12">
-              {menuItems.map((item, i) => (
+              {mobileMenuItems.map((item, i) => (
                 <Link href={item.href} key={`mobile-${item.title}`}>
                 <motion.div
                   initial={{ opacity: 0, y: 50 }}

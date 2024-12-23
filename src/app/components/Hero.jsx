@@ -129,7 +129,7 @@ export default function Hero() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
-          end: '+=2000',
+          end: '+=600',
           pin: true,
           scrub: 1,
           anticipatePin: 1
