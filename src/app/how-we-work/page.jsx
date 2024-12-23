@@ -51,14 +51,18 @@ export default function HowWeWork() {
         <div className="relative">
           {/* Vertical line - hidden on mobile */}
         {/* Curly wave timeline */}
+{/* Extra curly timeline */}
 <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full">
-  <svg className="h-full" width="50" viewBox="0 0 50 1000" fill="none" preserveAspectRatio="none">
+  <svg className="h-full" width="100" viewBox="0 0 100 1000" fill="none" preserveAspectRatio="none">
     <path 
-      d="M 25,0 
-         C 45,100 5,200 25,300
-         C 45,400 5,500 25,600
-         C 45,700 5,800 25,900
-         C 45,950 25,1000 25,1000" 
+      d="M 50,0 
+         C 80,50 20,100 50,150
+         C 80,200 20,250 50,300
+         C 80,350 20,400 50,450
+         C 80,500 20,550 50,600
+         C 80,650 20,700 50,750
+         C 80,800 20,850 50,900
+         C 80,950 50,1000 50,1000" 
       stroke="url(#gradient)" 
       strokeWidth="4" 
       fill="none"
@@ -72,6 +76,7 @@ export default function HowWeWork() {
     </defs>
   </svg>
 </div>
+
 
           {timelineSteps.map((step, index) => (
             <motion.div

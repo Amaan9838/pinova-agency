@@ -63,7 +63,7 @@ const blogPost = {
 
 export default function BlogPost() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-20">
+    <div className="min-h-screen md:py-40 bg-gradient-to-b from-gray-50 to-white py-20">
       <div className="max-w-4xl mx-auto px-4">
         <Link href="/blog" className="inline-flex items-center text-gray-600 hover:text-gray-900 mb-8">
           <ArrowLeft className="w-4 h-4 mr-2" />
