@@ -3,8 +3,8 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import { 
-  ArrowUpRight, Sparkles, Zap, Target, Palette, Code, Globe, TrendingUp,
-  Smartphone, Search, Video, MessageSquare, BarChart, Shield
+  ArrowUpRight, Sparkles, Code, TrendingUp,
+ Video
 } from 'lucide-react'
 import Button  from '../components/Button';
 
