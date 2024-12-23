@@ -125,14 +125,14 @@ export default function Navigation() {
   }, [])
 
   const desktopMenuItems = [
-    { title: "Services", href: "#" },
+    { title: "Services", href: "/services" },
     { title: "Projects", href: "#" },
     { title: "Process", href: "#" },
     { title: "About", href: "#" }
   ]
   
   const mobileMenuItems = [
-    { title: "Services", href: "#" },
+    { title: "Services", href: "/services" },
     { title: "Projects", href: "#" },
     { title: "Process", href: "#" },
     { title: "About", href: "#" },
