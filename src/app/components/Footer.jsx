@@ -10,7 +10,7 @@ const footerLinks = {
   rightSection: [
     { text: "Our services", href: "/services" },
     { text: "How we works", href: "/how-we-work" },
-    { text: "Blog", href: "#" }
+    { text: "Blog", href: "/blog" }
   ],
   socialLinks: [
     { icon: Instagram, href: "https://www.instagram.com/pinovastudio/", label: "Instagram" },

@@ -48,7 +48,6 @@ const Slide = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
   
   h2 {
     font-size: clamp(3rem, 8vw, 7rem);
@@ -106,15 +105,15 @@ width: 50px;
 const slides = [
   {
     title: "Our ability to adapt",
-    subtitle: "We adapt to your needs and constraints. We are flexible and responsive."
+    subtitle: "From e-commerce platforms to custom web applications, we craft experiences as unique as your brand. We adapt to your needs and constraints. We are flexible and responsive."
   },
   {
     title: "Tailor-made support",
-    subtitle: "We support you in carrying out your projects. We advise and guide you."
+    subtitle: "We support you in carrying out your projects. We advise and guide you from ideation to execution, we handle every detail, so you don’t have to."
   },
   {
-    title: "Our strength of proposition",
-    subtitle: "We offer you innovative and creative solutions. We bring you our expertise."
+    title: "Expertise You Can Trust",
+    subtitle: "Ranked among the top web development companies, we bring decades of collective experience to your project. We are known for the work that is responsive, scalabe and optimized for all devies."
   }
 ]
 
@@ -229,7 +228,7 @@ export default function CarouselSection() {
 
         <SlidesContainer ref={slidesContainerRef}>
           {slides.map((slide, index) => (
-            <Slide className='carousel-slide' key={index}>
+            <Slide className='carousel-slide p-[4rem] md:py-[2rem] md:px-[10rem]' key={index}>
               <h2>{slide.title}</h2>
               <p>{slide.subtitle}</p>
             </Slide>
