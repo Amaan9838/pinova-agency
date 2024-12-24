@@ -142,14 +142,14 @@ const ToolImage = styled.img`
 const slides = [
   {
     type: 'intro',
-    title: 'A complete tech product team',
-    content: 'We are a team of developers, designers and project managers. The goal is to excel in each area and create high-quality digital products.'
+    title: 'A complete tech product dream team',
+    content: 'We are a team of developers, designers and project managers. Our mission? To sprinkle high quality digital products into a world already drowning in apps & websites.'
   },
   {
     type: 'service',
     title: 'Design',
-    number: '001',
-    content: 'We take into account user interaction with the interface. We pay special attention to hypothesis testing and prototyping, only the most successful solutions are retained for visualization.',
+    number: ': The Art Of Getting Attention',
+    content: "Like we got your attention, you read till here. Our user-centric designs are made to grab attention without getting bored. It's all about perfect gradients, hypothesis testing, prototyping, and making sure the interface feels as cozy as warm cup of tea.",
     tools: [
       'https://cdn.worldvectorlogo.com/logos/figma-1.svg',
       'https://upload.wikimedia.org/wikipedia/commons/c/c2/Adobe_XD_CC_icon.svg',
@@ -160,8 +160,8 @@ const slides = [
   {
     type: 'service',
     title: 'Development',
-    number: '002',
-    content: 'We develop web and mobile applications. We use the latest technologies and best practices to create digital products that are scalable and maintainable over time solutions are retained for visualization.',
+    number: ': Turning Coffee Into Code',
+    content: "Welcome to the world of scalable, maintainable, borderline-magical applications. Whether it's web or mobile we craft code that sings (and sometimes screams). The Secret Sauce? Cutting-edge technology, long slack arguments and just a pinch of caffeine-fueled panic. Our alias:",
     tools: [
       'https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg',
       'https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg',
@@ -173,8 +173,8 @@ const slides = [
   {
     type: 'service',
     title: 'Strategy',
-    number: '003',
-    content: 'Nothing makes sense without good organization. We use agile methods to manage our projects. We are transparent and communicate regularly with our clients to keep them informed of the progress of the project.',
+    number: ': Even Chaos Needs Management',
+    content: "Let's face it, Nothing get's done without good old fashion organizing chaos. We swear by agile methods becuase nothing says 'progress' like a daily standard meeting where nobody stands up. We keep our clients informed, Every step of the way.",
     tools: [
       'https://www.vectorlogo.zone/logos/google_analytics/google_analytics-icon.svg',
       'https://www.vectorlogo.zone/logos/google/google-icon.svg',
@@ -318,7 +318,7 @@ export default function ServicesSection() {
                 </ServiceCard>
                 ) : (
                 <ServiceCard>
-                  <h2>{slide.title} <span style={{opacity: 0.3}}>_{slide.number}</span></h2>
+                  <h2>{slide.title} <span style={{opacity: 0.3}}>{slide.number}</span></h2>
                   <p>{slide.content}</p>
                   <div className="tools flex flex-wrap">
                     {slide.tools.map((tool, i) => (
