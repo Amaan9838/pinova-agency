@@ -231,7 +231,7 @@ export default function CarouselSection() {
           {slides.map((slide, index) => (
             <Slide className='carousel-slide p-[4rem] md:py-[2rem] md:px-[10rem]' key={index}>
               <h2>{slide.title}</h2>
-              <p className='px-32'>{slide.subtitle}</p>
+              <p className='md:px-32'>{slide.subtitle}</p>
             </Slide>
           ))}
         </SlidesContainer>
