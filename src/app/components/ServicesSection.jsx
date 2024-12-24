@@ -161,7 +161,7 @@ const slides = [
     type: 'service',
     title: 'Development',
     number: ': Turning Coffee Into Code',
-    content: "Welcome to the world of scalable, maintainable, borderline-magical applications. Whether it's web or mobile we craft code that sings (and sometimes screams). The Secret Sauce? Cutting-edge technology, long slack arguments and just a pinch of caffeine-fueled panic. Our alias:",
+    content: "Welcome to the world of scalable, maintainable, borderline-magical applications. Whether it's web or mobile we craft code that sings (and sometimes screams). The Secret Sauce? Cutting-edge technology, long slack arguments and just a pinch of caffeine-fueled panic. Our alies:",
     tools: [
       'https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg',
       'https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg',
@@ -174,7 +174,7 @@ const slides = [
     type: 'service',
     title: 'Strategy',
     number: ': Even Chaos Needs Management',
-    content: "Let's face it, Nothing get's done without good old fashion organizing chaos. We swear by agile methods becuase nothing says 'progress' like a daily standard meeting where nobody stands up. We keep our clients informed, Every step of the way.",
+    content: "Let's face it, Nothing get's done without good old fashion organizing chaos. We swear by agile methods because nothing says 'progress' like a daily stand-up meeting where nobody stands up. We keep our clients informed, Every step of the way.",
     tools: [
       'https://www.vectorlogo.zone/logos/google_analytics/google_analytics-icon.svg',
       'https://www.vectorlogo.zone/logos/google/google-icon.svg',
