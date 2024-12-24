@@ -182,7 +182,7 @@ const slides = [
       'https://www.vectorlogo.zone/logos/shopify/shopify-icon.svg'
     ]
   }
-]
+] 
 
 
 
