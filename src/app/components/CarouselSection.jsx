@@ -68,6 +68,7 @@ const Slide = styled.div`
     color: rgba(255, 255, 255, 0.8);
     font-family: var(--font-poppins);
     text-align: center;
+
   }
 
   @media (max-width: 768px) {
@@ -230,7 +231,7 @@ export default function CarouselSection() {
           {slides.map((slide, index) => (
             <Slide className='carousel-slide p-[4rem] md:py-[2rem] md:px-[10rem]' key={index}>
               <h2>{slide.title}</h2>
-              <p>{slide.subtitle}</p>
+              <p className='px-32'>{slide.subtitle}</p>
             </Slide>
           ))}
         </SlidesContainer>
