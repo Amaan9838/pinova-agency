@@ -42,7 +42,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-     <body className={`${poppins.variable} ${baloo2.variable}`}>
+     <body className={`${poppins.variable} ${baloo2.variable} overflow-x-hidden`}>
               <Navigation />
         {children}
         <TawkMessenger />  

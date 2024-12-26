@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/services/page.jsx", "src/app/how-we-work/page.jsx", "src/app/blog/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/services/page.jsx", "src/app/how-we-work/page.jsx", "src/app/blog/page.jsx", "src/app/components/Fortune500Section.jsx", "src/app/components/ServiceShowcase.jsx"],
   "exclude": ["node_modules"]
 }

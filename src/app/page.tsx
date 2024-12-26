@@ -2,24 +2,20 @@
 
 import Hero from '@/app/components/Hero'
 import CarouselSection from '@/app/components/CarouselSection'
-import ServicesSection from '@/app/components/ServicesSection';
-import CreativeScroll from '@/app/components/CreativeScroll';
-import Testimonials from '@/app/components/Testimonials';
+import ServicesSection from '@/app/components/ServicesSection'
+import CreativeScroll from '@/app/components/CreativeScroll'
+import Testimonials from '@/app/components/Testimonials'
+import Fortune500Section from '@/app/components/Fortune500Section'
 
 export default function Home() {
   return (
     <main>
-     
         <Hero />
-        {/* <Projects /> */}
         <CarouselSection />
         <ServicesSection/>
+        <Fortune500Section/>
         <CreativeScroll/>
         <Testimonials/>
-        
-        {/* <About />
-        <Footer />
-      </SmoothScroll> */}
     </main>
   )
 }
