@@ -1,52 +1,50 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { useState } from 'react'
-import Image from 'next/image'
+// import { useState } from 'react'
 
 const Fortune500Section = () => {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+//   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
-  const clients = [
-    {
-        name: 'Microsoft',
-        logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoft/microsoft-original.svg',
-        description: 'Transformed digital infrastructure'
-    },
-    {
-        name: 'Apple',
-        logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg',
-        description: 'Revolutionary UX design'
-    },
-    {
-        name: 'Google',
-        logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg',
-        description: 'AI implementation'
-    },
-    {
-        name: 'Meta',
-        logo: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Meta-Logo.png',
-        description: 'Social platform optimization'
-    },
-    {
-        name: 'Amazon',
-        logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg',
-        description: 'E-commerce solutions'
-    },
-    {
-        name: 'Intel',
-        logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intel/intel-original.svg',
-        description: 'Hardware optimization'
-    }
-]
+//   const clients = [
+//     {
+//         name: 'Microsoft',
+//         logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoft/microsoft-original.svg',
+//         description: 'Transformed digital infrastructure'
+//     },
+//     {
+//         name: 'Apple',
+//         logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg',
+//         description: 'Revolutionary UX design'
+//     },
+//     {
+//         name: 'Google',
+//         logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg',
+//         description: 'AI implementation'
+//     },
+//     {
+//         name: 'Meta',
+//         logo: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Meta-Logo.png',
+//         description: 'Social platform optimization'
+//     },
+//     {
+//         name: 'Amazon',
+//         logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg',
+//         description: 'E-commerce solutions'
+//     },
+//     {
+//         name: 'Intel',
+//         logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intel/intel-original.svg',
+//         description: 'Hardware optimization'
+//     }
+// ]
 
-const [formData, setFormData] = useState({
-  firstName: '',
-  lastName: '',
-  email: '',
-  company: '',
-  message: ''
-})
+// const [formData, setFormData] = useState({
+//   firstName: '',
+//   lastName: '',
+//   email: '',
+//   company: '',
+//   message: ''
+// })
 
 const handleSubmit = (e: React.FormEvent) => {
   e.preventDefault()
