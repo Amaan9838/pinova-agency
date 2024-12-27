@@ -110,7 +110,7 @@ const Fortune500Section = () => {
       <div className="flex flex-col  justify-center items-center flex-wrap gap-x-6 sm:gap-x-12 lg:gap-x-24">
     <h2 className='text-4xl font-semibold text-gray-700 mb-8'>If they trust us, Why don't you</h2>
       <div className='flex flex-wrap items-center sm:gap-12 gap-6'>
-      <svg
+    <svg
   fill="none"
   height={48}
   viewBox="0 0 32 48"
@@ -130,9 +130,9 @@ const Fortune500Section = () => {
 
       <svg
   fill="none"
-  height={48}
-  viewBox="0 0 47 48"
-  width={47}
+   height={48}
+  viewBox="0 0 32 48"
+  width={32}
   xmlns="http://www.w3.org/2000/svg"
 >
   <path
@@ -147,8 +147,9 @@ const Fortune500Section = () => {
 
 
       <svg
-       className="py-3 lg:py-5 w-16 h-auto md:w-20 lg:w-24 text-gray-500 dark:text-neutral-500"
-       enableBackground="new 0 0 2499 614"
+       height={64}
+       width={64}
+         enableBackground="new 0 0 2499 614"
   xmlns="http://www.w3.org/2000/svg"
 
   viewBox="0 0 96.000000 27.000000"
@@ -169,8 +170,8 @@ const Fortune500Section = () => {
 
 <svg
   xmlns="http://www.w3.org/2000/svg"
-  className="py-3 lg:py-5 w-16 h-auto md:w-20 lg:w-24 text-gray-500 dark:text-neutral-500"
-
+  height={64}
+  width={64}
   viewBox="0 0 673 902"
   preserveAspectRatio="xMidYMid meet"
 >
