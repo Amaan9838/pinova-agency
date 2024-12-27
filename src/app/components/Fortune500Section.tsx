@@ -68,8 +68,8 @@ const handleSubmit = (e: React.FormEvent) => {
                   Get in Touch With Our Team
                 </h1>
                 <p className="text-gray-600">
-                  We're here to help your business grow. Fill out the form and we'll get back to you within 24 hours.
-                </p>
+  We&apos;re here to help your business grow. Fill out the form and we&apos;ll get back to you within 24 hours.
+</p>
               </div>
           {/* End Title */}
           {/* Blockquote */}
@@ -89,9 +89,9 @@ const handleSubmit = (e: React.FormEvent) => {
               />
             </svg>
             <div className="relative z-10">
-              <p className="text-xl italic text-gray-800 ">
-                Amazing people to work with. Very fast and professional partner.
-              </p>
+            <p className="text-xl italic text-gray-800 ">
+  Amazing people to work with. Very fast and professional partner.
+</p>
             </div>
             <footer className="mt-3">
               <div className="flex items-center gap-x-4">
