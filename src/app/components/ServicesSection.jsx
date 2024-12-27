@@ -308,7 +308,7 @@ export default function ServicesSection() {
               ) : (
                 index === 1 ? (
                   <ServiceCard className='md:ml-[-20vh]'>
-                  <h2>{slide.title} <span style={{opacity: 0.3}}>_{slide.number}</span></h2>
+                  <h2>{slide.title} <span style={{opacity: 0.3}}>{slide.number}</span></h2>
                   <p>{slide.content}</p>
                   <div className="tools flex flex-wrap">
                     {slide.tools.map((tool, i) => (
@@ -318,7 +318,7 @@ export default function ServicesSection() {
                 </ServiceCard>
                 ) : (
                 <ServiceCard>
-                  <h2>{slide.title} <span style={{opacity: 0.3}}>{slide.number}</span></h2>
+                  <h2>{slide.title}<span style={{opacity: 0.3}}>{slide.number}</span></h2>
                   <p>{slide.content}</p>
                   <div className="tools flex flex-wrap">
                     {slide.tools.map((tool, i) => (

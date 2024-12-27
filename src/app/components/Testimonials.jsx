@@ -9,19 +9,19 @@ gsap.registerPlugin(ScrollTrigger);
 
 const testimonials = [
   {
-    text: "We came to pinova with nothing but a vague idea and a tight headline. Not only did they finish work on time, but also held our hands throughout the entire process! ",
+    text: "We came to Pinova with nothing but a vague idea and a tight deadline. Not only did they finish work on time, but also held our hands throughout the entire process! ",
     author: "Kaushal A.",
     role: "Founder of LAGOM PERFUMES",
     avatar: "/api/placeholder/96/96"
   },
   {
-    text: "Never felt more personalzed befor like with pinova. The team's patience with my endless 'can we change this font ?' request was saintly. The support didn't stop after launch, either. Months later, they're still just one text away when i have a question or break something by accident! ",
+    text: "Never felt more personalized before like with Pinova. The team's patience with my endless 'can we change this font?' request was saintly. The support didn't stop after launch, either. Months later, they're still just one text away when i have a question or break something by accident! ",
     author: "D. Demir",
     role: "Owner of DokiCollections",
     avatar: "/api/placeholder/96/96"
   },
   {
-    text: "Pinova helped us refine our strategy, plan our user journey, and fix every little hiccup. Before we even noticed it. From advising us on best practices, to expalining complex processes in plain english in a more relatable and realistic way but with a lot of more expertise and professionalism! Helped me in my tech projects, you can trust the process! Very satisfied.",
+    text: "Pinova helped us refine our strategy, plan our user journey, and fix every little hiccup before we even noticed it. From advising us on best practices, to expalining complex processes in plain english in a more relatable and realistic way but with a lot more expertise and professionalism!",
     author: "H. Sheikh",
     role: "Realator, UAE",
     avatar: "/api/placeholder/96/96"
@@ -168,10 +168,12 @@ const Testimonials = () => {
             <h3 className="text-white text-[2.5rem] md:text-[5.5rem] leading-tight md:leading-[6.5rem] font-bold text-center">
               The expertise of a team 🏢 combined with the proximity of a freelancer 🧑‍💻
             </h3>
+            <a href='/contact' target='_blank'>
             <div className="flex items-center gap-1 rounded-[50px] px-4 md:px-6 py-4 md:py-8 bg-white text-2xl md:text-4xl text-[#202437] font-[500] mt-8 md:mt-4 cursor-pointer hover:bg-gray-100 transition-colors">
               <span>Contact us</span>
               <ArrowUpRight className="w-8 h-8 md:w-12 md:h-12" />
             </div>
+            </a>
           </div>
 
           {/* Footer */}

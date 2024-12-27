@@ -66,7 +66,7 @@ const contentSlides = [
   },
   {
     mainHeading: "Strategy",
-    subHeading: "Crafting master plans so solid, Even your competitors might sneak a peak. Objectives ? Consider them conquered.",
+    subHeading: "Crafting master plans so solid, Even your competitors might sneak a peak. Objectives? Consider them conquered.",
   },
   {
     mainHeading: "Implementation",
@@ -260,19 +260,20 @@ const CreativeScroll = () => {
           <h1 className="md:text-[6rem] text-4xl font-bold text-white leading-tight">
             We are a creative 🎨 and
             <br />
-            passionate 🧠 team based
+            passionate 🧠 team serving
             <br />
-            in Paris 🏠
+            across the Globe 🌏
           </h1>
-          <button className="mt-8 bg-white text-black rounded-full md:text-4xl text-2xl px-6 py-6 md:px-8 md:py-10 font-semibold">
-            Meet our team →
+          <a href="/contact">
+          <button className="mt-8 bg-white text-black rounded-full md:text-4xl text-2xl px-6 py-6 md:px-8 md:py-10 font-semibold hover:bg-black hover:text-white transition-colors duration-300">
+           Let&apos;s talk, It&apos;s Free →
           </button>
+          </a>
         </div>
       </section>
 
       <div
         className="black-section  bg-[#1E1E2E] text-center relative z-10 pt-16 px-6  md:pt-[140px] md:px-[120px] md:pb-[72px]"
-  
       >
         <h1 className="md:text-[6rem] text-4xl md:leading-[6rem] font-bold text-white">
           We offer you ideal support from idea to implementation
