@@ -61,7 +61,7 @@ const handleSubmit = (e: React.FormEvent) => {
       <div className="grid items-center md:grid-cols-2 gap-8 lg:gap-12">
       <div>
               <p className="inline-block text-sm font-medium bg-clip-text bg-gradient-to-l from-blue-600 to-violet-500 text-transparent">
-                Let's Connect
+                Let&apos;s Connect
               </p>
               <div className="mt-4 md:mb-12 max-w-2xl">
                 <h1 className="mb-4 font-semibold text-gray-800 text-4xl lg:text-5xl">
