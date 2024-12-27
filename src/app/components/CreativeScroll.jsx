@@ -62,15 +62,15 @@ const contentSlides = [
   {
     mainHeading: "Ideation",
     subHeading:
-      "We start by getting to know our clients, their goals and their target audience.",
+      "We start by obsessing over your goals, audience and wildest ideas. No detail is too small (or too extra).",
   },
   {
     mainHeading: "Strategy",
-    subHeading: "Developing comprehensive plans to achieve your objectives",
+    subHeading: "Crafting master plans so solid, Even your competitors might sneak a peak. Objectives ? Consider them conquered.",
   },
   {
     mainHeading: "Implementation",
-    subHeading: "Turning ideas into reality with precision and creativity",
+    subHeading: "Where dreams become reality and reality get's a glow-up. Expect precision, creativity, and may be a tiny bit of magic.",
   },
 ];
 
@@ -117,8 +117,10 @@ const CreativeScroll = () => {
           start: "top top",
           end: `+=${contentSlides.length * 100}%`,
           pin: true,
-          scrub: 1,
+          scrub: 2,
           anticipatePin: 1, // Anticipate pinning to prevent flickering
+          fastScrollEnd: true, // Add this
+    preventOverlaps: true, // Add this
           onUpdate: (self) => {
             // Calculate the active index based on scroll progress
             const newIndex = Math.round(self.progress * (contentSlides.length - 1));
@@ -280,6 +282,8 @@ const CreativeScroll = () => {
       <section
         ref={fixedSectionRef}
         className="min-h-screen bg-[#1E1E2E] relative"
+        style={{ backfaceVisibility: 'hidden' }} // Add this
+
       >
            <div className="hidden absolute left-8 top-1/2 -translate-y-1/2 md:flex flex-col gap-4">
           {contentSlides.map((_, index) => (

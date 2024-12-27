@@ -9,21 +9,21 @@ gsap.registerPlugin(ScrollTrigger);
 
 const testimonials = [
   {
-    text: "I really enjoyed working with Ilan from the Inprogress team. His quest for performance and velocity is miraculous and has helped the team achieve its goals.",
-    author: "Nicolas Guillaume",
-    role: "Product Owner, Le Monde",
+    text: "We came to pinova with nothing but a vague idea and a tight headline. Not only did they finish work on time, but also held our hands throughout the entire process! ",
+    author: "Kaushal A.",
+    role: "Founder of LAGOM PERFUMES",
     avatar: "/api/placeholder/96/96"
   },
   {
-    text: "The team will quickly define your needs and propose adapted solutions. They will also not hesitate to argue their choices.",
-    author: "Charles Lefebvre",
-    role: "CEO, Company",
+    text: "Never felt more personalzed befor like with pinova. The team's patience with my endless 'can we change this font ?' request was saintly. The support didn't stop after launch, either. Months later, they're still just one text away when i have a question or break something by accident! ",
+    author: "D. Demir",
+    role: "Owner of DokiCollections",
     avatar: "/api/placeholder/96/96"
   },
   {
-    text: "Helped me in my tech projects, you can trust the process! Very satisfied.",
-    author: "William Smith",
-    role: "CTO, GoPopMe",
+    text: "Pinova helped us refine our strategy, plan our user journey, and fix every little hiccup. Before we even noticed it. From advising us on best practices, to expalining complex processes in plain english in a more relatable and realistic way but with a lot of more expertise and professionalism! Helped me in my tech projects, you can trust the process! Very satisfied.",
+    author: "H. Sheikh",
+    role: "Realator, UAE",
     avatar: "/api/placeholder/96/96"
   }
 ];
@@ -92,7 +92,7 @@ const Testimonials = () => {
       start: "top center",
       end: "bottom center",
       onUpdate: (self) => {
-        setIsHalfViewport(self.progress > 0.5);
+        setIsHalfViewport(self.progress > 0.2);
       }
     });
 
@@ -160,8 +160,8 @@ const Testimonials = () => {
 
         <section 
           ref={blueRef}
-          className={`relative mt-16 md:mt-24 mx-4 md:mx-8 rounded-[50px] bg-[#5E43FF] transition-all duration-500 ${
-            isHalfViewport ? 'md:min-h-screen' : 'md:min-h-[85vh] mx-8'
+          className={`relative mt-16 md:mt-24 mx-4 rounded-[50px] bg-[#5E43FF] transition-all duration-500 ${
+            isHalfViewport ? 'md:min-h-screen mx-0' : 'md:min-h-[85vh] mx-8'
           }`}
         >
           <div className="px-6 md:px-36 py-12 md:py-24 flex flex-col justify-center items-center">
