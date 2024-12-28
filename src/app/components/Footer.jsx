@@ -3,8 +3,8 @@ import { Instagram, Facebook, Linkedin, Twitter, Phone } from 'lucide-react'
 
 const footerLinks = {
   leftSection: [
-    { text: "Privacy Policy", href: "#" },
-    { text: "Terms", href: "#" },
+    { text: "Privacy Policy", href: "/privacy" },
+    { text: "Terms", href: "/terms" },
     { text: "hello@pinova.in", href: "mailto:hello@pinova.in" }
   ],
   rightSection: [

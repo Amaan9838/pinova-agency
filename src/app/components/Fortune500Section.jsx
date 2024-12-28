@@ -20,11 +20,17 @@ const Fortune500Section = () => {
       scrollTrigger: {
         trigger: counterRef.current,
         start: "top center",
-        toggleActions: "play none none reverse"
+        toggleActions: "play none none none", // Prevents reversing
+        once: true, // Ensures the animation only plays once
       },
       onUpdate: () => {
         if(counterRef.current) {
           counterRef.current.textContent = `${Math.round(counter.value).toLocaleString()}+`
+        }
+      },
+      onComplete: () => {
+        if(counterRef.current) {
+          counterRef.current.textContent = "2,500+"; // Fallback to final count
         }
       }
     })
@@ -74,7 +80,7 @@ const Fortune500Section = () => {
                 <div className="shrink-0">
                   <img
                     className="size-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
+                    src="/customer.jpeg"
                     alt="Avatar"
                   />
                 </div>

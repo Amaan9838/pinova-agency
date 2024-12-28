@@ -2,102 +2,84 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
-import { 
-  ArrowUpRight, Sparkles, Code, TrendingUp,
- Video
-} from 'lucide-react'
 import Button  from '../components/Button';
+import { Code, Paintbrush, LayoutTemplate, Search } from 'lucide-react'
+import Link from 'next/link';
 
 const services = [
   {
-    title: "Strategic Brand Evolution",
-    description: "Transform your market position with data-driven brand strategies and immersive digital experiences that captivate and convert.",
-    features: [
-      "Brand Architecture & Strategy",
-      "Visual Identity Systems",
-      "Market Positioning",
-      "Brand Voice & Messaging"
-    ],
-    icon: Sparkles,
-    bgClass: "bg-gradient-to-br from-purple-50 to-indigo-50",
-    accentColor: "text-indigo-600",
-    buttonColor: "bg-indigo-600 hover:bg-indigo-700",
-    stats: {
-      value: "250+",
-      label: "Brands Transformed"
-    }
-  },
-  {
-    title: "Digital Experience Design",
-    description: "Craft extraordinary digital experiences that merge cutting-edge technology with human-centered design principles.",
+    title: "Web Development",
+    description: "Transform your vision into a powerful, scalable web application using cutting-edge technologies. Our development team crafts clean, efficient code that drives results.",
     features: [
       "Custom Web Applications",
-      "E-commerce Platforms",
-      "Progressive Web Apps",
-      "Design Systems"
+      "E-commerce Solutions",
+      "API Integration",
+      "Database Architecture"
     ],
     icon: Code,
     bgClass: "bg-gradient-to-br from-blue-50 to-cyan-50",
     accentColor: "text-blue-600",
     buttonColor: "bg-blue-600 hover:bg-blue-700",
     stats: {
-      value: "98%",
+      value: "100+",
+      label: "Projects Delivered"
+    }
+  },
+  {
+    title: "Web Design",
+    description: "Create stunning, user-centric designs that capture attention and drive engagement. We blend aesthetics with functionality for maximum impact.",
+    features: [
+      "UI/UX Design",
+      "Responsive Layouts",
+      "Brand Integration",
+      "Interactive Prototypes"
+    ],
+    icon: Paintbrush,
+    bgClass: "bg-gradient-to-br from-purple-50 to-indigo-50",
+    accentColor: "text-indigo-600",
+    buttonColor: "bg-indigo-600 hover:bg-indigo-700",
+    stats: {
+      value: "95%",
       label: "Client Satisfaction"
     }
   },
   {
-    title: "Growth Marketing",
-    description: "Drive exponential growth through integrated marketing strategies that leverage data, creativity, and emerging technologies.",
+    title: "Website Redesign",
+    description: "Breathe new life into your existing website with modern design principles and enhanced functionality that keeps users coming back.",
     features: [
-      "Performance Marketing",
-      "Marketing Automation",
-      "Conversion Optimization",
-      "Analytics & Insights"
+      "UX Audit",
+      "Performance Optimization",
+      "Modern Technologies",
+      "Content Strategy"
     ],
-    icon: TrendingUp,
-    bgClass: "bg-gradient-to-br from-green-50 to-emerald-50",
+    icon: LayoutTemplate,
+    bgClass: "bg-gradient-to-br from-emerald-50 to-teal-50",
     accentColor: "text-emerald-600",
     buttonColor: "bg-emerald-600 hover:bg-emerald-700",
     stats: {
-      value: "10x",
-      label: "Average ROI"
+      value: "40%",
+      label: "Avg. Conversion Increase"
     }
   },
   {
-    title: "Content & Storytelling",
-    description: "Create compelling narratives and immersive content that builds lasting connections with your target audience.",
+    title: "SEO Optimization",
+    description: "Boost your online visibility and drive organic traffic with our data-driven SEO strategies and content optimization techniques.",
     features: [
+      "Keyword Research",
+      "Technical SEO",
       "Content Strategy",
-      "Video Production",
-      "Motion Design",
-      "Social Storytelling"
+      "Performance Tracking"
     ],
-    icon: Video,
+    icon: Search,
     bgClass: "bg-gradient-to-br from-orange-50 to-rose-50",
     accentColor: "text-rose-600",
     buttonColor: "bg-rose-600 hover:bg-rose-700",
     stats: {
-      value: "500M+",
-      label: "Content Views"
+      value: "5x",
+      label: "Traffic Growth"
     }
   }
 ]
-
-const testimonials = [
-  {
-    quote: "They transformed our digital presence and doubled our conversion rate within months.",
-    author: "Sarah Chen",
-    role: "CEO, TechVision",
-    image: "/api/placeholder/64/64"
-  },
-  {
-    quote: "The most innovative agency we've worked with. Their strategic approach is unmatched.",
-    author: "Michael Ross",
-    role: "CMO, GrowthCo",
-    image: "/api/placeholder/64/64"
-  }
-]
-
 function ParallaxSection({ children }) {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
@@ -114,74 +96,7 @@ function ParallaxSection({ children }) {
   )
 }
 
-const ServiceCard = ({ service, index }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.2 }}
-      className={`group p-8 md:p-12 rounded-3xl ${service.bgClass} hover:shadow-2xl transition-all duration-500 relative overflow-hidden`}
-    >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-        <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.1),transparent)]" />
-      </div>
 
-      <div className="relative z-10">
-        {/* Header */}
-        <div className="flex items-start justify-between mb-8">
-          <div className={`p-4 rounded-2xl ${service.bgClass} shadow-lg`}>
-            <service.icon className={`w-8 h-8 ${service.accentColor}`} />
-          </div>
-          <motion.div
-            whileHover={{ rotate: 45 }}
-            className={`${service.accentColor}`}
-          >
-            <ArrowUpRight className="w-6 h-6" />
-          </motion.div>
-        </div>
-
-        {/* Content */}
-        <h2 className="text-2xl md:text-3xl font-bold mb-4">{service.title}</h2>
-        <p className="text-gray-600 mb-8 text-lg">{service.description}</p>
-
-        {/* Features */}
-        <div className="grid sm:grid-cols-2 gap-4 mb-8">
-          {service.features.map((feature, i) => (
-            <div key={i} className="flex items-center gap-3">
-              <div className={`w-1.5 h-1.5 rounded-full ${service.accentColor.replace('text-', 'bg-')}`} />
-              <span className="text-sm md:text-base text-gray-600">{feature}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Stats */}
-        <div className="mb-8 p-4 bg-white/50 rounded-2xl backdrop-blur-sm">
-          <div className={`${service.accentColor} text-3xl font-bold`}>
-            {service.stats.value}
-          </div>
-          <div className="text-sm text-gray-600">{service.stats.label}</div>
-        </div>
-
-        {/* CTA */}
-        <div className="flex flex-col sm:flex-row gap-4 items-center">
-          <Button 
-            className={`w-full sm:w-auto ${service.buttonColor} text-white`}
-          >
-            Explore Service
-          </Button>
-          <Button 
-            variant="outline" 
-            className="w-full sm:w-auto border-gray-200 hover:bg-white/50"
-          >
-            View Case Studies
-          </Button>
-        </div>
-      </div>
-    </motion.div>
-  )
-}
 
 export default function Services() {
   return (
@@ -224,45 +139,55 @@ export default function Services() {
               </p>
 
               <div className="flex flex-col sm:flex-row justify-center gap-4 mt-12">
+              <Link href="/contact">
                 <Button className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-6 text-lg">
                   Start Your Project
                 </Button>
-                <Button variant="outline" className="border-gray-200 px-8 py-6 text-lg">
-                  View Our Work
-                </Button>
+                </Link>
               </div>
             </motion.div>
           </motion.div>
         </ParallaxSection>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {services.map((service, index) => (
-            <ServiceCard key={index} service={service} index={index} />
-          ))}
-        </div>
-
-        {/* Testimonials */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {testimonials.map((testimonial, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.2 }}
-              className="bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-lg"
+              transition={{ delay: index * 0.1 }}
+              className={`${service.bgClass} rounded-3xl p-8 hover:shadow-2xl transition-all duration-500`}
             >
-              <p className="text-xl text-gray-700 mb-6">{testimonial.quote}</p>
-              <div className="flex items-center gap-4">
-                <img
-                  src={testimonial.image}
-                  alt={testimonial.author}
-                  className="w-12 h-12 rounded-full"
-                />
-                <div>
-                  <div className="font-semibold">{testimonial.author}</div>
-                  <div className="text-sm text-gray-600">{testimonial.role}</div>
+              <div className="flex items-start justify-between mb-8">
+                <div className={`p-4 rounded-2xl ${service.bgClass} shadow-lg`}>
+                  <service.icon className={`w-8 h-8 ${service.accentColor}`} />
                 </div>
+              </div>
+
+              <h2 className="text-2xl font-bold mb-4">{service.title}</h2>
+              <p className="text-gray-600 mb-8">{service.description}</p>
+
+              <div className="grid grid-cols-2 gap-4 mb-8">
+                {service.features.map((feature, i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <div className={`w-1.5 h-1.5 rounded-full ${service.accentColor.replace('text-', 'bg-')}`} />
+                    <span className="text-sm text-gray-600">{feature}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex justify-between items-center">
+                <div className="p-4 bg-white/50 rounded-xl">
+                  <div className={`${service.accentColor} text-2xl font-bold`}>
+                    {service.stats.value}
+                  </div>
+                  <div className="text-sm text-gray-600">{service.stats.label}</div>
+                </div>
+                
+                <button className={`${service.buttonColor} text-white px-6 py-3 rounded-xl`}>
+                  Learn More →
+                </button>
               </div>
             </motion.div>
           ))}

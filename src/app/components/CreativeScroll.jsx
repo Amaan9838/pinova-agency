@@ -63,16 +63,21 @@ const contentSlides = [
     mainHeading: "Ideation",
     subHeading:
       "We start by obsessing over your goals, audience and wildest ideas. No detail is too small (or too extra).",
+    imageUrl: "/ideation.jpeg"
   },
   {
     mainHeading: "Strategy",
-    subHeading: "Crafting master plans so solid, Even your competitors might sneak a peak. Objectives? Consider them conquered.",
+    subHeading: "Crafting master plans so solid, even your competitors might sneak a peek. Objectives? Consider them conquered.",
+    imageUrl: "/strategy.jpeg"
   },
   {
     mainHeading: "Implementation",
-    subHeading: "Where dreams become reality and reality get's a glow-up. Expect precision, creativity, and may be a tiny bit of magic.",
+    subHeading: "Where dreams become reality and reality gets a glow-up. Expect precision, creativity, and maybe a tiny bit of magic.",
+    imageUrl: "/implementation.png"
   },
 ];
+
+
 
 const CreativeScroll = () => {
   const containerRef = useRef(null);
@@ -314,8 +319,8 @@ const CreativeScroll = () => {
                 </h2>
                 <p className="text-xl md:text-4xl md:text-gray-300 text-gray-400">{slide.subHeading}</p>
               </div>
-              <img alt="presentation" src="https://inprogress.agency/static/media/frame4.f5185cd9c489dc53b491.webp" loading="lazy" class="h-[300px] md:h-full rounded-3xl mt-12 md-8 md:mt-0 md:mb-0 max-[1180px]:h-auto max-[1180px]:w-1/3 max-md:w-[200px]"></img>
-            </div>
+              <img alt="presentation" src={slide.imageUrl} loading="lazy" className="h-[300px] md:h-full rounded-3xl mt-12 md-8 md:mt-0 md:mb-0 max-[1180px]:h-auto max-[1180px]:w-1/3 max-md:w-[200px]"></img>
+              </div>
           ))}
         </div>
        
