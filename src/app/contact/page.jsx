@@ -235,7 +235,7 @@ export default function Contact() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="max-w-7xl mx-auto pt-16 md:pt-32 pb-8 md:pb-16 px-4"
+          className="max-w-7xl mx-auto pt-28 md:pt-32 pb-8 md:pb-16 px-4"
         >
           <motion.h1 
             initial={{ y: 20, opacity: 0 }}
