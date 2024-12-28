@@ -57,7 +57,7 @@ const services = [
     accentColor: "text-emerald-600",
     buttonColor: "bg-emerald-600 hover:bg-emerald-700",
     stats: {
-      value: "40%",
+      value: "60%",
       label: "Avg. Conversion Increase"
     }
   },
@@ -185,9 +185,9 @@ export default function Services() {
                   <div className="text-sm text-gray-600">{service.stats.label}</div>
                 </div>
                 
-                <button className={`${service.buttonColor} text-white px-6 py-3 rounded-xl`}>
+                {/* <button className={`${service.buttonColor} text-white px-6 py-3 rounded-xl`}>
                   Learn More →
-                </button>
+                </button> */}
               </div>
             </motion.div>
           ))}
