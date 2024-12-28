@@ -43,7 +43,7 @@ const Fortune500Section = () => {
               </p>
               <div className="mt-4 md:mb-12 max-w-2xl">
                 <h1 className="mb-4 font-semibold text-gray-800 text-4xl lg:text-5xl">
-                  Get in Touch With Our Team
+                If they trust us, Why don't you
                 </h1>
                
               </div>
@@ -108,7 +108,6 @@ const Fortune500Section = () => {
       
       {/* Clients */}
       <div className="flex flex-col  justify-center items-center flex-wrap gap-x-6 sm:gap-x-12 lg:gap-x-24">
-    <h2 className='text-4xl font-semibold text-gray-700 mb-8'>If they trust us, Why don't you</h2>
       <div className='flex flex-wrap items-center sm:gap-12 gap-6'>
     <svg
   fill="none"

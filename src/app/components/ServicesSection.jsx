@@ -151,11 +151,11 @@ const slides = [
     number: ': The Art Of Getting Attention',
     content: "Like we got your attention, you read till here. Our user-centric designs are made to grab attention without getting bored. It's all about perfect gradients, hypothesis testing, prototyping, and making sure the interface feels as cozy as warm cup of tea.",
     tools: [
-      'https://cdn.worldvectorlogo.com/logos/figma-1.svg',
-      'https://upload.wikimedia.org/wikipedia/commons/c/c2/Adobe_XD_CC_icon.svg',
-      'https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg',
-      'https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg'
-    ]
+      '/adobe-xd-logo-svg-vector.svg',
+      '/canva-icon.svg', 
+      '/figma-logo.svg',
+       ]
+    
   },
   {
     type: 'service',
@@ -167,7 +167,10 @@ const slides = [
       'https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg',
       'https://www.vectorlogo.zone/logos/google_cloud/google_cloud-icon.svg',
       'https://assets.vercel.com/image/upload/v1588805858/repositories/vercel/logo.png',
-      'https://www.vectorlogo.zone/logos/cloudflare/cloudflare-icon.svg'
+      '/nextjs-icon.svg',
+      '/tailwind-css-icon.svg',
+      '/github-icon.svg',
+
     ]
   },
   {
