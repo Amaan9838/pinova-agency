@@ -5,6 +5,7 @@ import Navigation from "./components/Navigation";
 import "./globals.css";
 import Footer from "./components/Footer";
 import TawkMessenger from '@/app/components/TawkMessenger';
+import GoogleAnalytics from '@/app/components/GoogleAnalytics'
 
 const poppins = League_Spartan({
   subsets: ['latin-ext'],
@@ -91,6 +92,7 @@ export default function RootLayout({
         <link rel="canonical" href="https://pinova.in" />
         <meta name="theme-color" content="#5E43FF" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+        <GoogleAnalytics />
       </head>
       <body className={`${poppins.variable} ${baloo2.variable} overflow-x-hidden`}>
         <Navigation />
