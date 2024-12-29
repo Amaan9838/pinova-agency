@@ -6,6 +6,7 @@ import "./globals.css";
 import Footer from "./components/Footer";
 import TawkMessenger from '@/app/components/TawkMessenger';
 import GoogleAnalytics from '@/app/components/GoogleAnalytics'
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const poppins = League_Spartan({
   subsets: ['latin-ext'],
