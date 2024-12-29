@@ -101,6 +101,7 @@ export default function RootLayout({
         <TawkMessenger />  
         <CustomCursor />
         <Footer/>
+        <SpeedInsights />
       </body>
     </html>
   );
