@@ -14,7 +14,7 @@ const Fortune500Section = () => {
     const counter = { value: 0 }
     
     gsap.to(counter, {
-      value: 2500,
+      value: 250,
       duration: 2,
       ease: "power1.out",
       scrollTrigger: {
@@ -30,7 +30,7 @@ const Fortune500Section = () => {
       },
       onComplete: () => {
         if(counterRef.current) {
-          counterRef.current.textContent = "2,500+"; // Fallback to final count
+          counterRef.current.textContent = "250+"; // Fallback to final count
         }
       }
     })

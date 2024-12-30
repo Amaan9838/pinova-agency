@@ -21,7 +21,7 @@ const services = [
     accentColor: "text-blue-600",
     buttonColor: "bg-blue-600 hover:bg-blue-700",
     stats: {
-      value: "2500+",
+      value: "250+",
       label: "Projects Delivered"
     }
   },

@@ -21,7 +21,7 @@ const baloo2 = Baloo_2({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://pinova.in'),
+  metadataBase: new URL('https://www.pinova.in'),
   title: {
     default: "Pinova Technologies | Web Development & Design Agency",
     template: "%s | Pinova Technologies"
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Pinova Technologies',
     description: 'Transform your digital presence with our expert web development and design services',
-    url: 'https://pinova.in',
+    url: 'https://www.pinova.in',
     siteName: 'Pinova Technologies',
     images: [
       {
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Pinova Technologies',
     description: 'Transform your digital presence with our expert web development and design services',
-    creator: '@pinovatech',
+    creator: '@pinovastudio',
     images: ['/twitter-image.jpg'],
   },
   robots: {
@@ -90,7 +90,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="canonical" href="https://pinova.in" />
+        <link rel="canonical" href="https://www.pinova.in" />
         <meta name="theme-color" content="#5E43FF" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <GoogleAnalytics />
