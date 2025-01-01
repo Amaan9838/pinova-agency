@@ -6,14 +6,17 @@ import ServicesSection from '@/app/components/ServicesSection'
 import CreativeScroll from '@/app/components/CreativeScroll'
 import Testimonials from '@/app/components/Testimonials'
 import Fortune500Section from '@/app/components/Fortune500Section'
+import FullStackServices from '@/app/components/FullStackServices';
 
 export default function Home() {
   return (
     <main>
         <Hero />
         <CarouselSection />
-        <ServicesSection/>
+        <FullStackServices/>
         <Fortune500Section/>
+        <ServicesSection/>
+
         <CreativeScroll/>
         <Testimonials/>
     </main>

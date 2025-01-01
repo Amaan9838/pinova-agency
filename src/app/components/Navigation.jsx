@@ -1,12 +1,14 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import styled from '@emotion/styled'
 import Link from 'next/link'
 import { Menu } from 'lucide-react'
 import Image from 'next/image'
 import { Instagram, Facebook, Linkedin, Twitter, Phone } from 'lucide-react'
+// Add GSAP import at the top
+import gsap from 'gsap'
 
 const socialLinks = [
   { icon: Instagram, href: "https://www.instagram.com/pinovastudio/", label: "Instagram" },
@@ -116,13 +118,41 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+
+// Inside Navigation component, add navRef
+const navRef = useRef(null)
+
+useEffect(() => {
+  const handleScroll = () => {
+    const heroSection = document.querySelector('section')
+    if (heroSection) {
+      const heroBottom = heroSection.offsetTop + heroSection.offsetHeight
+      const currentScroll = window.scrollY
+      
+      if (currentScroll > heroBottom) {
+        // Animate navbar sliding up
+        gsap.to(navRef.current, {
+          yPercent: -100,
+          duration: 0.1,
+          ease: "power2.inOut"
+        })
+      } else {
+        // Animate navbar sliding back down
+        gsap.to(navRef.current, {
+          yPercent: 0,
+          duration: 0.1,
+          ease: "power2.inOut"
+        })
+      }
+
+      setIsScrolled(currentScroll > 35 && currentScroll < heroBottom)
     }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }
+  
+  window.addEventListener('scroll', handleScroll)
+  return () => window.removeEventListener('scroll', handleScroll)
+}, [])
+
 
   const desktopMenuItems = [
     { title: "Services", href: "/services" },
@@ -151,10 +181,17 @@ export default function Navigation() {
   }
 
   return (
-    <Nav className={`${isOpen ? 'h-screen' : ''}`}  style={{ 
-      position: 'fixed ',
-      boxShadow: isScrolled ? '0 2px 20px rgba(0,0,0,0.1)' : 'none'
-    }}>
+    <Nav 
+    ref={navRef}
+    className={`${isOpen ? 'h-screen' : ''}`}  
+    style={{ 
+      position: 'fixed',
+      boxShadow: isScrolled ? '0 2px 20px rgba(0,0,0,0.1)' : 'none',
+      top: 0
+    }}
+  >
+  
+  
       {/* Desktop Navigation */}
       <DesktopNav>
         <motion.div

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { League_Spartan, Baloo_2 } from "next/font/google";
+import { League_Spartan, Baloo_2, Outfit } from "next/font/google";
 import CustomCursor from './components/CustomCursor';
 import Navigation from "./components/Navigation";
 import "./globals.css";
@@ -18,6 +18,12 @@ const baloo2 = Baloo_2({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800'],
   variable: '--font-baloo2'
+})
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-outfit'
 })
 
 export const metadata: Metadata = {
@@ -95,7 +101,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <GoogleAnalytics />
       </head>
-      <body className={`${poppins.variable} ${baloo2.variable} overflow-x-hidden`}>
+      <body className={`${poppins.variable} ${baloo2.variable} ${outfit.variable} overflow-x-hidden`}>
         <Navigation />
         {children}
         <TawkMessenger />  

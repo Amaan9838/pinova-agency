@@ -160,8 +160,8 @@ const Testimonials = () => {
 
         <section 
           ref={blueRef}
-          className={`relative mt-16 md:mt-24 mx-4 rounded-[50px] bg-[#5E43FF] transition-all duration-500 ${
-            isHalfViewport ? 'md:min-h-screen mx-0' : 'md:min-h-[85vh] mx-8'
+          className={`relative mt-16 md:mt-24 rounded-[50px] bg-[#5E43FF] transition-all duration-500 ${
+            isHalfViewport ? 'md:min-h-screen mx-0' : 'md:min-h-[75vh] mx-8'
           }`}
         >
           <div className="px-6 md:px-36 py-12 md:py-24 flex flex-col justify-center items-center">
