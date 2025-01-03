@@ -35,7 +35,7 @@ export const blogPosts = [
       Finding the Right Marketing Partner
     </h2>
     <p class="services-headings text-gray-700 leading-relaxed mb-8">
-      While developing your social media strategy, partnering with experts can significantly accelerate your success. <a href="https://www.designrush.com" target="_blank" rel="noopener noreferrer" class="text-purple-600 hover:text-purple-800 underline">DesignRush</a> offers a curated marketplace where you can find top-rated social media marketing agencies that align with your brand vision and goals. Their platform makes it easy to compare and connect with agencies that have proven track records in your industry.
+      While developing your social media strategy, partnering with experts can significantly accelerate your success. <a href="https://www.designrush.com" target="_blank" class="text-purple-600 hover:text-purple-800 underline">DesignRush</a> offers a curated marketplace where you can find top-rated social media marketing agencies that align with your brand vision and goals. Their platform makes it easy to compare and connect with agencies that have proven track records in your industry.
     </p>
 
     <!-- Section 3 -->
@@ -125,7 +125,7 @@ export const blogPosts = [
               Converting Visitors into Clients
             </h2>
             <p class="services-headings text-gray-700 leading-relaxed mb-8">
-              The journey from visitor to client is like a well-choreographed dance. Each element of your website – from the compelling headlines to the strategically placed call-to-action buttons – plays a crucial role. <a href="https://www.designrush.com" target="_blank" rel="noopener noreferrer" class="text-purple-600 hover:text-purple-800 underline">DesignRush</a> can connect you with expert web designers who understand this dance and can optimize your website for maximum conversions.
+              The journey from visitor to client is like a well-choreographed dance. Each element of your website – from the compelling headlines to the strategically placed call-to-action buttons – plays a crucial role. <a href="https://www.designrush.com" target="_blank" class="text-purple-600 hover:text-purple-800 underline">DesignRush</a> can connect you with expert web designers who understand this dance and can optimize your website for maximum conversions.
             </p>
       
             <h2 class="services-headings text-3xl font-bold text-gray-900 mt-12 mb-6">
