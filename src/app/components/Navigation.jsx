@@ -231,8 +231,9 @@ useEffect(() => {
 
       {/* Mobile Navigation */}
       <div className="lg:hidden flex justify-between items-center px-6 py-4">
-        <Image src="/logo.png" width={120} height={40} alt="Logo" className="z-60" />
-        
+        <Link href={'/'}>
+        <Image src="/transparent-logo.png" width={120} height={40} alt="Logo" className="z-60" />
+        </Link>
         <MenuButton onClick={() => setIsOpen(!isOpen)}>
           <Menu 
             className={`transform transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`} 
@@ -249,6 +250,7 @@ useEffect(() => {
             animate="open"
             exit="closed"
             variants={menuVariants}
+            className='mt-[-20%]'
           >
             <div className="h-full flex flex-col justify-center items-center gap-12">
               {mobileMenuItems.map((item, i) => (
@@ -274,7 +276,7 @@ useEffect(() => {
             </div>
             
             <motion.div 
-              className="absolute bottom-12 left-0 w-full flex justify-center gap-8"
+              className="absolute bottom-28 left-0 w-full flex justify-center gap-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}

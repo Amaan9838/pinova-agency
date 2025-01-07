@@ -180,7 +180,7 @@ export default function CarouselSection() {
           start: "top center",
           end: "bottom center",
           scrub: 1,
-          onEnter: () => updateProgress(i)
+          
         }
       })
       gsap.from(slide.children, {

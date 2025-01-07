@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useLayoutEffect } from 'react'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 import styled from '@emotion/styled'
+import Image from 'next/image';
 
 const ServicesWrapper = styled.div`
   overflow: hidden;
@@ -39,6 +40,8 @@ const SlidesContainer = styled.div`
 `
 
 const Slide = styled.div`
+will-change: transform;
+  transform: translateZ(0);
   width: 75vw;
   text-align: left;
     padding-left: 5rem;
@@ -124,20 +127,16 @@ const ServiceCard = styled.div`
 `
 
 
-const ToolImage = styled.img`
-  height: 40px;
-  width: auto;
-  margin-right: 1.5rem;
-  margin-top: 1.5rem;
-
-  opacity: 0.9;
-  transition: all 0.3s ease;
-  
-  &:hover {
-    filter: grayscale(0%);
-    opacity: 1;
-  }
-`
+const ToolImage = ({ src, alt }) => (
+  <Image
+    src={src}
+    alt={alt}
+    width={40}
+    height={40}
+    loading='lazy'
+    className="mr-6 mt-6 opacity-90 hover:opacity-100 transition-opacity duration-300"
+  />
+)
 
 const slides = [
   {
@@ -217,6 +216,8 @@ export default function ServicesSection() {
     
     const ctx = gsap.context(() => {
       if (!isMobile) {
+        gsap.set('.service-slide', { willChange: 'transform' })
+    
         const slides = gsap.utils.toArray('.service-slide');
         gsap.to(slides, {
           xPercent: -100 * (slides.length - 1),
@@ -293,10 +294,15 @@ export default function ServicesSection() {
       }
     });
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert()
+      gsap.set('.service-slide', { willChange: 'auto' })
+    }
   }, [isMobile]);
 
   return (
+    <section aria-label="Our Services" role="region">
+    
     <ServicesWrapper ref={triggerRef} id='services'>
       <ServicesSections ref={sectionRef}>
         <SlidesContainer ref={slidesContainerRef}>
@@ -335,5 +341,6 @@ export default function ServicesSection() {
         </SlidesContainer>
       </ServicesSections>
     </ServicesWrapper>
+    </section>
   )
 }

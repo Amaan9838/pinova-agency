@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import styled from "@emotion/styled";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -319,8 +320,17 @@ const CreativeScroll = () => {
                 </h2>
                 <p className="text-xl md:text-4xl md:text-gray-300 text-gray-400">{slide.subHeading}</p>
               </div>
-              <img alt="presentation" src={slide.imageUrl} loading="lazy" className="h-[300px] md:h-full rounded-3xl mt-12 md-8 md:mt-0 md:mb-0 max-[1180px]:h-auto max-[1180px]:w-1/3 max-md:w-[200px]"></img>
-              </div>
+              <Image
+  alt="presentation"
+  src={slide.imageUrl}
+  width={1200}
+  height={800}
+  priority={false}
+  quality={85}
+  className="rounded-3xl mt-12 md:mt-0 w-full h-auto object-cover max-w-[300px] md:max-w-none md:h-[600px] xl:h-[800px]"
+  sizes="(max-width: 768px) 200px, (max-width: 1180px) 33vw, 1200px"
+/>
+ </div>
           ))}
         </div>
        

@@ -7,7 +7,7 @@ import { blogPosts } from '@/app/blog/blogPosts';
 
 export default function Blog() {
   return (
-    <div className="min-h-screen md:py-40 bg-gradient-to-b from-gray-50 to-white py-20">
+    <div className="min-h-screen md:py-40 bg-gradient-to-b from-gray-50 to-white py-36">
       <div className="max-w-7xl mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -80,43 +80,6 @@ export default function Blog() {
         </div> */}
       </div>
     </div>
-  //   <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white">
-  //   <div className="max-w-4xl mx-auto px-4 text-center">
-  //     <motion.div
-  //       initial={{ opacity: 0, y: 20 }}
-  //       animate={{ opacity: 1, y: 0 }}
-  //       transition={{ duration: 0.8 }}
-  //     >
-  //       <h1 className="text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500">
-  //         Coming Soon
-  //       </h1>
-        
-  //       <p className="text-2xl text-gray-600 mb-8">
-  //         We're crafting something extraordinary.
-  //       </p>
-
-  //       <div className="flex flex-col items-center space-y-4">
-  //         <div className="w-16 h-1 bg-gradient-to-r from-purple-600 to-blue-500 rounded-full"></div>
-  //         <p className="text-lg text-gray-500">
-  //           Our team of storytellers is preparing content that matters.
-  //         </p>
-  //       </div>
-  //     </motion.div>
-
-  //     <motion.div 
-  //       initial={{ opacity: 0 }}
-  //       animate={{ opacity: 1 }}
-  //       transition={{ delay: 0.5, duration: 1 }}
-  //       className="mt-16"
-  //     >
-  //       <p className="text-gray-400 tracking-widest uppercase text-sm">
-  //         Expected Launch
-  //       </p>
-  //       <p className="text-3xl font-bold text-gray-800">
-  //         Q1 2025
-  //       </p>
-  //     </motion.div>
-  //   </div>
-  // </div>
+ 
   );
 }
