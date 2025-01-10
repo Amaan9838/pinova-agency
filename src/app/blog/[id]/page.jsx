@@ -1,132 +1,114 @@
-'use client';
+import { Metadata } from 'next'
+import BlogPost from "./BlogPost"
+import { blogPosts } from '@/app/blog/blogPosts'
 
-import { use } from 'react';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import Link from 'next/link';
-import { ArrowLeft, Clock, Calendar, Share2 } from 'lucide-react';
-import { blogPosts } from '@/app/blog/blogPosts';
-
-export default function BlogPost({ params }) {
-  // Unwrap params using React.use()
-  const unwrappedParams = use(params);
-  const post = blogPosts.find(post => post.slug === unwrappedParams.id);
-
-  const sharePost = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: post.title,
-        text: post.excerpt,
-        url: window.location.href,
-      });
+// Generate dynamic metadata
+export async function generateMetadata({ params }) {
+  const post = blogPosts.find(post => post.slug === params.id)
+  const baseUrl =  'https://www.pinova.in'
+  
+  if (!post) {
+    return {
+      title: 'Blog Post Not Found',
+      description: 'The requested blog post could not be found.',
+      robots: 'noindex, nofollow'
     }
-  };
+  }
 
-  return (
-    <div className="min-h-screen md:py-40 bg-gradient-to-b from-gray-50 to-white py-20">
-      <div className="max-w-4xl mx-auto px-4">
-        <Link href="/blog" className="inline-flex items-center text-gray-600 hover:text-gray-900 mb-8 transition-colors">
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Blog
-        </Link>
+  // Construct canonical URL
+  const canonicalUrl = `${baseUrl}/blog/${post.slug}`
 
-        <motion.article
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="bg-white rounded-2xl shadow-xl overflow-hidden"
-        >
-          <div className="relative h-96">
-            <Image
-              src={post.image}
-              alt={post.title}
-              fill
-              priority
-              style={{ objectFit: 'cover' }}
-              className="bg-gray-100"
-            />
-          </div>
+  return {
+    title: {
+      absolute: `${post.title} | Your Brand Name`,
+      template: '%s | Your Brand Name'
+    },
+    description: post.excerpt,
+    keywords: ['blog', 'article', post.category], // Assuming you add tags to posts
+    authors: [{ name: post.author.name, url: `${baseUrl}/author/${post.author.name}` }],
+    canonical: canonicalUrl,
+    
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url: canonicalUrl,
+      siteName: 'Pinova Technologies',
+      images: [
+        {
+          url: post.image,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+          type: 'image/jpeg',
+        }
+      ],
+      locale: 'en_US',
+      type: 'article',
+      publishedTime: post.publishDate,
+      modifiedTime: post.updatedDate, // If you track updates
+      authors: [post.author.name],
+      tags: post.tags,
+    },
+    
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt,
+      images: [post.image],
+      creator: '@pinovastudio',
+      site: '@pinova',
+    },
 
-          <div className="p-8">
-            <div className="flex flex-wrap items-center mb-4 gap-4">
-              <span className="bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-full">
-                {post.category}
-              </span>
-              <div className="flex items-center text-gray-500">
-                <Clock className="w-4 h-4 mr-1" />
-                {post.readTime}
-              </div>
-              {post.publishDate && (
-                <div className="flex items-center text-gray-500">
-                  <Calendar className="w-4 h-4 mr-1" />
-                  {post.publishDate}
-                </div>
-              )}
-            </div>
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        'en-US': `${baseUrl}/blog/${post.slug}`,
+        // Add other language versions if available
+      },
+    },
+    
+    // Schema.org structured data
+    other: {
+      'script:ld+json': {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: post.title,
+        description: post.excerpt,
+        image: post.image,
+        datePublished: post.publishDate,
+        dateModified: post.updatedDate,
+        author: {
+          '@type': 'Person',
+          name: post.author.name,
+          url: `${baseUrl}/author/${post.author.name}`,
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'Pinova Technologies',
+          logo: {
+            '@type': 'ImageObject',
+            url: `${baseUrl}/logo.png`,
+          },
+        },
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': canonicalUrl,
+        },
+      },
+    },
+    
+   
+    
+    robots: {
+      index: true,
+      follow: true,
+      'max-snippet': -1,
+      'max-image-preview': 'large',
+      'max-video-preview': -1,
+    },
+  }
+}
 
-            <h1 className="text-4xl font-bold text-gray-900 mb-6">
-              {post.title}
-            </h1>
-
-            <div className="flex items-center mb-8 pb-8 border-b">
-              <div className="relative w-12 h-12 rounded-full overflow-hidden">
-                <Image
-                  src={post.author.avatar}
-                  alt={post.author.name}
-                  fill
-                  style={{ objectFit: 'cover' }}
-                />
-              </div>
-              <div className="ml-4">
-                <div className="font-medium text-gray-900">{post.author.name}</div>
-                <div className="text-sm text-gray-500">{post.author.role}</div>
-              </div>
-              <button 
-                onClick={sharePost}
-                className="ml-auto flex items-center text-gray-500 hover:text-gray-900 transition-colors"
-              >
-                <Share2 className="w-5 h-5 mr-2" />
-                Share
-              </button>
-            </div>
-
-            <div className="prose prose-lg max-w-none">
-
-                  <div  
-                    className="mb-6"
-                    dangerouslySetInnerHTML={{ __html: post.content }}
-                  />
- 
-            </div>
-          </div>
-        </motion.article>
-
-        <div className="mt-16">
-          <h3 className="text-2xl font-bold mb-8">Related Articles</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {post.relatedPosts.map((relatedPost) => (
-              <Link key={relatedPost.id} href={`/blog/${relatedPost.slug}`}>
-                <motion.div 
-                  whileHover={{ y: -5 }}
-                  className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
-                >
-                  <div className="relative h-48">
-                    <Image
-                      src={relatedPost.image}
-                      alt={relatedPost.title}
-                      fill
-                      style={{ objectFit: 'cover' }}
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h4 className="text-xl font-bold text-gray-900">{relatedPost.title}</h4>
-                  </div>
-                </motion.div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+export default function BlogPostPage({ params }) {
+  return <BlogPost params={params.id} />
 }

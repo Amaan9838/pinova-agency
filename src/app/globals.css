@@ -145,3 +145,8 @@ html {
     top: auto;
   }
 }
+
+
+.content-slide {
+  will-change: transform, opacity;
+}

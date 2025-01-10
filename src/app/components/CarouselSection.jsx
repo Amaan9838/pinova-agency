@@ -1,14 +1,30 @@
 'use client'
 
-import { useEffect, useRef, useState, useLayoutEffect } from 'react'
+import { useEffect, useRef, useState, useLayoutEffect, useCallback } from 'react'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 import styled from '@emotion/styled'
 
+// Add this debounce utility function at the top
+const debounce = (func, wait) => {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+};
+
 const CarouselWrapper = styled.div`
   overflow: hidden;
+  will-change: transform; // Add this
+  backface-visibility: hidden; // Add this
+  transform-style: preserve-3d; // Add this
 
-   @media (max-width: 768px) {
+  @media (max-width: 768px) {
     overflow-x: hidden;
     overflow-y: visible;
   }
@@ -143,7 +159,21 @@ export default function CarouselSection() {
   const sectionRef = useRef(null)
   const triggerRef = useRef(null)
   const slidesContainerRef = useRef(null)
+  const rafId = useRef(null)
   const isMobile = useScreenSize();
+
+    // Debounced scroll handler
+    const handleScroll = useCallback(
+      debounce((self) => {
+        rafId.current = requestAnimationFrame(() => {
+          const progress = Math.floor(self.progress * 3)
+          document.querySelectorAll('.progress-dot').forEach((dot, index) => {
+            dot.classList.toggle('active', index === progress)
+          })
+        })
+      }, 16), // ~60fps
+      []
+    )
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
@@ -155,19 +185,22 @@ export default function CarouselSection() {
      gsap.to(slides, {
       xPercent: -100 * (slides.length - 1),
       ease: "none",
+      force3D: true, // Add this
       scrollTrigger: {
         trigger: triggerRef.current,
         pin: true,
-        scrub: 1,
-        snap: 1 / (slides.length - 1),
+        scrub: {
+          ease: "power1.inOut", // Add easing
+          smoothing: 1 // Add smoothing
+        },
+        snap: {
+          snapTo: 1 / (slides.length - 1),
+          duration: 0.5,
+          ease: "power1.inOut"
+        },
         end: () => "+=" + slidesContainerRef.current.offsetWidth,
-        onUpdate: (self) => {
-            // Calculate which slide is active based on scroll progress
-            const progress = Math.floor(self.progress * 3)
-            document.querySelectorAll('.progress-dot').forEach((dot, index) => {
-              dot.classList.toggle('active', index === progress)
-            })
-          }
+        anticipatePin: 1, // Add this
+        onUpdate: handleScroll
       }
     });
   } else {
@@ -218,8 +251,13 @@ export default function CarouselSection() {
     }
   });
 
-  return () => ctx.revert();
-}, [isMobile]);
+  return () => {
+    ctx.revert()
+    if (rafId.current) {
+      cancelAnimationFrame(rafId.current)
+    }
+  }
+}, [isMobile, handleScroll]);
 
 
   return (
